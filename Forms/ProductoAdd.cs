@@ -15,7 +15,6 @@ namespace Semestral___DSIV_GS
             InitializeComponent();
             api = new ApiControl_();
 
-s
             errorProvider = new ErrorProvider
             {
                 BlinkStyle = ErrorBlinkStyle.NeverBlink
