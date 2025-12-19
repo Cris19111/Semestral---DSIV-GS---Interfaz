@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="FolderApi\ArticulosResponse.cs" />
     <Compile Include="FolderApi\Categoria.cs" />
+    <Compile Include="FolderApi\CategoriaDto.cs" />
     <Compile Include="FolderApi\Producto.cs" />
     <Compile Include="Forms\Categoria.cs">
       <SubType>Form</SubType>
@@ -95,6 +96,18 @@
     <Compile Include="FolderApi\LoginRequest.cs" />
     <Compile Include="FolderApi\LoginResponse.cs" />
     <Compile Include="FolderApi\RegistroUsuario.cs" />
+    <Compile Include="Forms\CategoriaAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CategoriaAdd.Designer.cs">
+      <DependentUpon>CategoriaAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CategoriaMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CategoriaMod.Designer.cs">
+      <DependentUpon>CategoriaMod.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +154,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\Categoria.resx">
       <DependentUpon>Categoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CategoriaAdd.resx">
+      <DependentUpon>CategoriaAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHistorial.resx">
       <DependentUpon>FormHistorial.cs</DependentUpon>

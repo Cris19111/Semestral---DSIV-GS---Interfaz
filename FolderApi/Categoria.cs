@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Semestral___DSIV_GS.FolderApi
 {
-    internal class Categoria
+    public class Categoria
     {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public int? CategoriaPadreId { get; set; }
     }
 }

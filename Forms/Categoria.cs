@@ -1,9 +1,7 @@
-﻿// File: Forms/Categoria.cs
-using Semestral___DSIV_GS.Clases;      // Si tienes modelos propios, quita CategoriaDto de abajo.
-using Semestral___DSIV_GS.FolderApi;   // ApiControl_
+﻿using Semestral___DSIV_GS.Clases;
+using Semestral___DSIV_GS.FolderApi;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,139 +9,187 @@ namespace Semestral___DSIV_GS
 {
     public partial class Categoria : Form
     {
-        private readonly ApiControl_ _api = new ApiControl_();
-        private readonly BindingSource _bsCategorias = new BindingSource();
-        private List<CategoriaDto> _categoriasOriginal = new List<CategoriaDto>();
-        private readonly DebounceTimer _debounceBuscar = new DebounceTimer(200);
+        private readonly ApiControl_ api;
+        private List<CategoriaDto> categoriasOriginal;
 
-        private const string ENDPOINT_CATEGORIAS = "api/categorias"; // Ajusta si tu ruta difiere
+        private CategoriaDto categoriaSeleccionada;
+
+        private const string ENDPOINT_CATEGORIAS = "api/categorias";
 
         public Categoria()
         {
             InitializeComponent();
-            // Por qué: asegurar que el grid haga selección completa, solo lectura y binding
+            api = new ApiControl_();
+
+        
+            cmbCategoria.Items.Clear();
+            cmbCategoria.Items.Add("Todos");
+            cmbCategoria.Items.Add("Id");
+            cmbCategoria.Items.Add("Nombre");
+            cmbCategoria.SelectedIndex = 0;
+
+
+            txtBuscarProducto.TextChanged += (s, e) => AplicarFiltro();
+            cmbCategoria.SelectedIndexChanged += (s, e) => AplicarFiltro();
+
+
+            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProductos.MultiSelect = false;
             dgvProductos.ReadOnly = true;
             dgvProductos.AllowUserToAddRows = false;
             dgvProductos.AllowUserToDeleteRows = false;
-            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProductos.MultiSelect = false;
+
+            dgvProductos.SelectionChanged += dgvProductos_SelectionChanged;
 
 
+            btnEditarCategoria.Enabled = false;
+            btnEliminarCategoria.Enabled = false;
 
-            dgvProductos.AutoGenerateColumns = false;
-            dgvProductos.DataSource = _bsCategorias;
 
-            // Filtros disponibles (campo)
-            cmbCategoria.Items.Clear();
-            cmbCategoria.Items.AddRange(new object[] { "Todos", "Id", "Nombre" });
-            cmbCategoria.SelectedIndex = 0;
+            btnBuscarProducto.Click += (s, e) => AplicarFiltro();
+            btnFiltrarProducto.Click += (s, e) => AplicarFiltro();
 
-            // Eventos
-            Load += async (_, __) => await CargarCategoriasAsync();
-            txtBuscarProducto.TextChanged += (_, __) => _debounceBuscar.Run(AplicarFiltro);
-            btnBuscarProducto.Click += (_, __) => AplicarFiltro();
-            btnFiltrarProducto.Click += (_, __) => AplicarFiltro();
-            btnCrearCategoria.Click += (_, __) => BtnCrearCategoria_Click();
-            btnEditarCategoria.Click += (_, __) => BtnEditarCategoria_Click();
-            btnEliminarCategoria.Click += async (_, __) => await BtnEliminarCategoriaAsync();
-            dgvProductos.CellDoubleClick += (_, __) => BtnEditarCategoria_Click();
+            btnCrearCategoria.Click += async (s, e) => await CrearCategoriaAsync();
+            // btnEditarCategoria.Click += async (s, e) => await EditarCategoriaAsync();
+            btnEliminarCategoria.Click += async (s, e) => await EliminarCategoriaAsync();
+
+
+        }
+
+        private async void Categoria_Load(object sender, EventArgs e)
+        {
+            dgvProductos.AutoGenerateColumns = true; 
+            await CargarCategoriasAsync();
+
         }
 
         private async Task CargarCategoriasAsync()
         {
+       
             try
             {
-                _api.SetToken(Session.Token);
-                var data = await _api.GetAsync<List<CategoriaDto>>(ENDPOINT_CATEGORIAS) ?? new List<CategoriaDto>();
-                _categoriasOriginal = data;
-                _bsCategorias.DataSource = data;
+                api.SetToken(Session.Token);
+
+                var data = await api.GetAsync<List<CategoriaDto>>(ENDPOINT_CATEGORIAS);
+
+                if (data == null)
+                {
+                    MessageBox.Show("La API devolvió NULL.",
+                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    categoriasOriginal = new List<CategoriaDto>();
+                    dgvProductos.DataSource = categoriasOriginal;
+                    return;
+                }
+
+                categoriasOriginal = data;
+                dgvProductos.DataSource = categoriasOriginal;
+
+                categoriaSeleccionada = null;
+                btnEditarCategoria.Enabled = false;
+                btnEliminarCategoria.Enabled = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar categorías:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar categorías:\n" + ex.ToString(),
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvProductos_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvProductos.CurrentRow?.DataBoundItem is CategoriaDto c)
+            {
+                categoriaSeleccionada = c;
+                btnEditarCategoria.Enabled = true;
+                btnEliminarCategoria.Enabled = true;
+            }
+            else
+            {
+                categoriaSeleccionada = null;
+                btnEditarCategoria.Enabled = false;
+                btnEliminarCategoria.Enabled = false;
             }
         }
 
         private void AplicarFiltro()
         {
-            if (_categoriasOriginal == null) return;
+            if (categoriasOriginal == null) return;
 
-            var texto = (txtBuscarProducto.Text ?? "").Trim().ToLowerInvariant();
-            var campo = (cmbCategoria.SelectedItem ?? "Todos").ToString();
+            string filtroTexto = (txtBuscarProducto.Text ?? "").Trim().ToLower();
+            string filtroCampo = cmbCategoria.SelectedItem?.ToString() ?? "Todos";
 
-            IEnumerable<CategoriaDto> q = _categoriasOriginal;
-
-            if (!string.IsNullOrWhiteSpace(texto) && campo != "Todos")
+            if (string.IsNullOrWhiteSpace(filtroTexto))
             {
-                switch (campo)
-                {
-                    case "Id":
-                        if (int.TryParse(texto, out var id))
-                            q = q.Where(c => c.Id == id);
-                        else
-                            q = _categoriasOriginal;
-                        break;
-                    case "Nombre":
-                        q = q.Where(c => (c.Nombre ?? "").ToLowerInvariant().Contains(texto));
-                        break;
-                }
-            }
-            else if (!string.IsNullOrWhiteSpace(texto))
-            {
-                q = q.Where(c =>
-                    c.Id.ToString().Contains(texto) ||
-                    (c.Nombre ?? "").ToLowerInvariant().Contains(texto) ||
-                    c.CantidadProductos.ToString().Contains(texto)
-                );
+                dgvProductos.DataSource = categoriasOriginal;
+                return;
             }
 
-            _bsCategorias.DataSource = q.ToList();
+            List<CategoriaDto> filtradas;
+
+            switch (filtroCampo)
+            {
+                case "Id":
+                    filtradas = int.TryParse(filtroTexto, out int id)
+                        ? categoriasOriginal.FindAll(c => c.Id == id)
+                        : categoriasOriginal;
+                    break;
+
+                case "Nombre":
+                    filtradas = categoriasOriginal.FindAll(c =>
+                        (c.Nombre ?? "").ToLower().Contains(filtroTexto));
+                    break;
+
+                default: // Todos
+                    filtradas = categoriasOriginal.FindAll(c =>
+                        c.Id.ToString().Contains(filtroTexto) ||
+                        (c.Nombre ?? "").ToLower().Contains(filtroTexto) ||
+                        c.CantidadProductos.ToString().Contains(filtroTexto));
+                    break;
+            }
+
+            dgvProductos.DataSource = filtradas;
         }
 
-        private void BtnCrearCategoria_Click()
-        {
-            // TODO: abre form de alta o llama POST a tu API.
-            // Ejemplo:
-            // var req = new { nombre = "Nueva", ... };
-            // await _api.PostAsync(ENDPOINT_CATEGORIAS, req);
-            MessageBox.Show("Crear Categoría - Conecta tu formulario o POST.", "Info");
-        }
 
-        private void BtnEditarCategoria_Click()
+        private async Task EliminarCategoriaAsync()
         {
-            var cat = GetSeleccion<CategoriaDto>();
-            if (cat == null) { MessageBox.Show("Selecciona una categoría.", "Atención"); return; }
-            // TODO: abre form de edición con 'cat' o llama PUT.
-            // await _api.PutAsync($"{ENDPOINT_CATEGORIAS}/{cat.Id}", updateObj);
-            MessageBox.Show($"Editar Categoría #{cat.Id} - Conecta tu formulario o PUT.", "Info");
-        }
+            if (categoriaSeleccionada == null)
+            {
+                MessageBox.Show("Seleccione una categoría.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-        private async Task BtnEliminarCategoriaAsync()
-        {
-            var cat = GetSeleccion<CategoriaDto>();
-            if (cat == null) { MessageBox.Show("Selecciona una categoría.", "Atención"); return; }
+            var ok = MessageBox.Show(
+                $"¿Eliminar la categoría #{categoriaSeleccionada.Id} ({categoriaSeleccionada.Nombre})?",
+                "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
 
-            var ok = MessageBox.Show($"¿Eliminar categoría #{cat.Id}?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (ok != DialogResult.Yes) return;
 
             try
             {
-                // TODO: DELETE real
-                // await _api.DeleteAsync($"{ENDPOINT_CATEGORIAS}/{cat.Id}");
-                MessageBox.Show("Simulación DELETE. Implementa tu llamada real.", "Info");
+                api.SetToken(Session.Token);
+
+                // DELETE real
+                await api.DeleteAsync($"{ENDPOINT_CATEGORIAS}/{categoriaSeleccionada.Id}");
+
+                MessageBox.Show("Categoría eliminada correctamente.",
+                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // refrescar lista
                 await CargarCategoriasAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al eliminar categoría:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al eliminar categoría:\n" + ex.ToString(),
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private T GetSeleccion<T>() where T : class
-        {
-            if (dgvProductos?.CurrentRow?.DataBoundItem is T item) return item;
-            return null;
-        }
 
         private void Volver_Click(object sender, EventArgs e)
         {
@@ -151,38 +197,24 @@ namespace Semestral___DSIV_GS
             home.Show();
             Close();
         }
-    }
-
-    // DTO simple. Si ya tienes un modelo en Semestral___DSIV_GS.Clases, elimina esta clase.
-    public sealed class CategoriaDto
-    {
-        public int Id { get; set; }
-        public string Nombre { get; set; } = "";
-        public int CantidadProductos { get; set; }
-    }
-
-    // Debounce mínimo para la caja de búsqueda
-    internal sealed class DebounceTimer
-    {
-        private readonly Timer _timer;
-        private Action _pending;
-
-        public DebounceTimer(int intervalMs)
+        private async Task CrearCategoriaAsync()
         {
-            _timer = new Timer { Interval = intervalMs };
-            _timer.Tick += (_, __) =>
+            try
             {
-                _timer.Stop();
-                var a = _pending; _pending = null;
-                a?.Invoke();
-            };
+                using (var frm = new CategoriaAdd())
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        await CargarCategoriasAsync(); // refresca dgv
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir formulario de crear:\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        public void Run(Action action)
-        {
-            _pending = action;
-            _timer.Stop();
-            _timer.Start();
-        }
     }
 }
