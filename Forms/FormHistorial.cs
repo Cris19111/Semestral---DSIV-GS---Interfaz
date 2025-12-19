@@ -27,7 +27,7 @@ namespace Semestral___DSIV_GS
         {
             dgvFracturas.AutoGenerateColumns = true;
             await CargarFacturasAsync();
-
+            MessageBox.Show("La API devolvió NULL.");
         }
 
         private async Task CargarFacturasAsync()

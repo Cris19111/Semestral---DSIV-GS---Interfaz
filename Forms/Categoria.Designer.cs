@@ -31,8 +31,6 @@
             this.btnEliminarCategoria = new System.Windows.Forms.Button();
             this.btnEditarCategoria = new System.Windows.Forms.Button();
             this.btnCrearCategoria = new System.Windows.Forms.Button();
-            this.grpCategorias = new System.Windows.Forms.GroupBox();
-            this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.btnFiltrarProducto = new System.Windows.Forms.Button();
             this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.cmbCategoria = new System.Windows.Forms.ComboBox();
@@ -40,8 +38,10 @@
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.lblBuscarProducto = new System.Windows.Forms.Label();
             this.Volver = new System.Windows.Forms.Button();
-            this.grpCategorias.SuspendLayout();
+            this.dgvProductos = new System.Windows.Forms.DataGridView();
+            this.grpCategorias = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
+            this.grpCategorias.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEliminarCategoria
@@ -82,31 +82,6 @@
             this.btnCrearCategoria.TabIndex = 21;
             this.btnCrearCategoria.Text = "Crear Categoria";
             this.btnCrearCategoria.UseVisualStyleBackColor = false;
-            // 
-            // grpCategorias
-            // 
-            this.grpCategorias.Controls.Add(this.dgvProductos);
-            this.grpCategorias.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCategorias.Location = new System.Drawing.Point(88, 112);
-            this.grpCategorias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpCategorias.Name = "grpCategorias";
-            this.grpCategorias.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpCategorias.Size = new System.Drawing.Size(901, 529);
-            this.grpCategorias.TabIndex = 20;
-            this.grpCategorias.TabStop = false;
-            this.grpCategorias.Text = "Categorias";
-            // 
-            // dgvProductos
-            // 
-            this.dgvProductos.BackgroundColor = System.Drawing.Color.White;
-            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Location = new System.Drawing.Point(23, 40);
-            this.dgvProductos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgvProductos.Name = "dgvProductos";
-            this.dgvProductos.RowHeadersWidth = 51;
-            this.dgvProductos.RowTemplate.Height = 24;
-            this.dgvProductos.Size = new System.Drawing.Size(859, 442);
-            this.dgvProductos.TabIndex = 6;
             // 
             // btnFiltrarProducto
             // 
@@ -187,6 +162,31 @@
             this.Volver.UseVisualStyleBackColor = false;
             this.Volver.Click += new System.EventHandler(this.Volver_Click);
             // 
+            // dgvProductos
+            // 
+            this.dgvProductos.BackgroundColor = System.Drawing.Color.White;
+            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductos.Location = new System.Drawing.Point(44, 36);
+            this.dgvProductos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvProductos.Name = "dgvProductos";
+            this.dgvProductos.RowHeadersWidth = 51;
+            this.dgvProductos.RowTemplate.Height = 24;
+            this.dgvProductos.Size = new System.Drawing.Size(859, 442);
+            this.dgvProductos.TabIndex = 6;
+            // 
+            // grpCategorias
+            // 
+            this.grpCategorias.Controls.Add(this.dgvProductos);
+            this.grpCategorias.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpCategorias.Location = new System.Drawing.Point(88, 112);
+            this.grpCategorias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpCategorias.Name = "grpCategorias";
+            this.grpCategorias.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpCategorias.Size = new System.Drawing.Size(901, 529);
+            this.grpCategorias.TabIndex = 20;
+            this.grpCategorias.TabStop = false;
+            this.grpCategorias.Text = "Categorias";
+            // 
             // Categoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -207,8 +207,9 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Categoria";
             this.Text = "Categoria";
-            this.grpCategorias.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.Categoria_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
+            this.grpCategorias.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,8 +220,6 @@
         private System.Windows.Forms.Button btnEliminarCategoria;
         private System.Windows.Forms.Button btnEditarCategoria;
         private System.Windows.Forms.Button btnCrearCategoria;
-        private System.Windows.Forms.GroupBox grpCategorias;
-        private System.Windows.Forms.DataGridView dgvProductos;
         private System.Windows.Forms.Button btnFiltrarProducto;
         private System.Windows.Forms.Button btnBuscarProducto;
         private System.Windows.Forms.ComboBox cmbCategoria;
@@ -228,5 +227,7 @@
         private System.Windows.Forms.TextBox txtBuscarProducto;
         private System.Windows.Forms.Label lblBuscarProducto;
         private System.Windows.Forms.Button Volver;
+        private System.Windows.Forms.DataGridView dgvProductos;
+        private System.Windows.Forms.GroupBox grpCategorias;
     }
 }
