@@ -40,7 +40,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnEliminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).BeginInit();
             this.SuspendLayout();
@@ -128,11 +127,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Elephant", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label1.Location = new System.Drawing.Point(71, 27);
+            this.label1.Location = new System.Drawing.Point(127, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(338, 40);
+            this.label1.Size = new System.Drawing.Size(376, 46);
             this.label1.TabIndex = 7;
             this.label1.Text = "Añade un producto";
             // 
@@ -184,26 +183,12 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Cantidad";
             // 
-            // btnEliminar
-            // 
-            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.btnEliminar.Font = new System.Drawing.Font("Sylfaen", 12F);
-            this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.Location = new System.Drawing.Point(213, 725);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(132, 56);
-            this.btnEliminar.TabIndex = 18;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = false;
-            // 
-            // ProductoModAdd
+            // ProductoAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(608, 832);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -216,7 +201,7 @@
             this.Controls.Add(this.numPrecio);
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.txtNombre);
-            this.Name = "ProductoModAdd";
+            this.Name = "ProductoAdd";
             this.Text = "ProductoModAdd";
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).EndInit();
@@ -239,6 +224,5 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnEliminar;
     }
 }

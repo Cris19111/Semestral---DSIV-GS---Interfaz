@@ -128,13 +128,13 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Elephant", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label1.Location = new System.Drawing.Point(71, 27);
+            this.label1.Location = new System.Drawing.Point(105, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(491, 40);
+            this.label1.Size = new System.Drawing.Size(425, 46);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Modifica/Añade un producto";
+            this.label1.Text = "Modifica un producto";
             // 
             // label2
             // 

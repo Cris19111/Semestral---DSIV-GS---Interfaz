@@ -18,17 +18,17 @@ namespace Semestral___DSIV_GS
             txtpass.UseSystemPasswordChar = true;
             api = new ApiControl_();
 
-            // ErrorProvider para marcar campos
+
             errorProvider = new ErrorProvider
             {
                 BlinkStyle = ErrorBlinkStyle.NeverBlink
             };
 
-            // Validación en vivo (cuando el usuario sale del campo)
+
             txtuser.Validating += (s, e) => { if (!ValidarUsuario()) e.Cancel = true; };
             txtpass.Validating += (s, e) => { if (!ValidarPassword()) e.Cancel = true; };
 
-            // (Opcional) Enter para login
+
             this.AcceptButton = btnlogin;
         }
 
@@ -88,7 +88,7 @@ namespace Semestral___DSIV_GS
             }
             catch (Exception ex)
             {
-                // Ej: credenciales inválidas u otro error que venga del backend
+
                 MessageBox.Show(ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -99,7 +99,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
-        // -------- VALIDACIONES --------
+
 
         private bool ValidarUsuario()
         {
@@ -111,7 +111,7 @@ namespace Semestral___DSIV_GS
                 return false;
             }
 
-            // reglas básicas (ajusta a tu sistema)
+
             if (user.Length < 3)
             {
                 errorProvider.SetError(txtuser, "El usuario debe tener al menos 3 caracteres.");
@@ -138,7 +138,7 @@ namespace Semestral___DSIV_GS
                 return false;
             }
 
-            // Ajusta estas reglas según tu backend
+
             if (pass.Length < 6)
             {
                 errorProvider.SetError(txtpass, "La contraseña debe tener al menos 6 caracteres.");

@@ -18,20 +18,20 @@ namespace Semestral___DSIV_GS
             api = new ApiControl_();
             original = seleccionado;
 
-            // ErrorProvider para resaltar campos inválidos
+
             errorProvider = new ErrorProvider
             {
                 BlinkStyle = ErrorBlinkStyle.NeverBlink
             };
 
-            // Cargar valores del producto seleccionado
+
             txtNombre.Text = original.Nombre;
             txtDescripcion.Text = original.Descripcion;
             numPrecio.Value = original.Precio;
             numStock.Value = original.Stock;
             chkItbms.Checked = original.PagaItbms;
 
-            // Validación en vivo (opcional/recomendado)
+
             txtNombre.Validating += (s, e) => { if (!ValidarNombre()) e.Cancel = true; };
             txtDescripcion.Validating += (s, e) => { if (!ValidarDescripcion()) e.Cancel = true; };
             numPrecio.Validating += (s, e) => { if (!ValidarPrecio()) e.Cancel = true; };
@@ -84,7 +84,6 @@ namespace Semestral___DSIV_GS
             }
         }
 
-        // ---- VALIDACIONES ----
 
         private bool ValidarNombre()
         {
@@ -116,7 +115,7 @@ namespace Semestral___DSIV_GS
         {
             string desc = (txtDescripcion.Text ?? "").Trim();
 
-            // Si quieres que sea opcional, elimina este bloque
+
             if (string.IsNullOrWhiteSpace(desc))
             {
                 errorProvider.SetError(txtDescripcion, "La descripción es obligatoria.");
