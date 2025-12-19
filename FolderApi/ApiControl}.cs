@@ -20,7 +20,7 @@ namespace Semestral___DSIV_GS.FolderApi
             };
 
             _client = new HttpClient(handler);
-            _client.BaseAddress = new Uri("https://localhost:7229/");
+            _client.BaseAddress = new Uri("http://srv595743.hstgr.cloud:5000/");
             _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
