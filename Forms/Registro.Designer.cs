@@ -138,7 +138,7 @@
             this.txtCorreo.Size = new System.Drawing.Size(511, 44);
             this.txtCorreo.TabIndex = 19;
             this.txtCorreo.UseSystemPasswordChar = true;
-            this.txtCorreo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            
             // 
             // label4
             // 

@@ -8,33 +8,56 @@ namespace Semestral___DSIV_GS
     public partial class ProductoAdd : Form
     {
         private readonly ApiControl_ api;
+        private readonly ErrorProvider errorProvider;
 
         public ProductoAdd()
         {
             InitializeComponent();
             api = new ApiControl_();
 
-            // Valores por defecto (opcional)
+            // ErrorProvider para resaltar campos
+            errorProvider = new ErrorProvider
+            {
+                BlinkStyle = ErrorBlinkStyle.NeverBlink
+            };
+
+            // Valores por defecto
             txtNombre.Text = "";
             txtDescripcion.Text = "";
             numPrecio.Value = 0;
             numStock.Value = 0;
             chkItbms.Checked = false;
+
+            // Validación en vivo (opcional pero recomendado)
+            txtNombre.Validating += (s, e) => { if (!ValidarNombre()) e.Cancel = true; };
+            txtDescripcion.Validating += (s, e) => { if (!ValidarDescripcion()) e.Cancel = true; };
+            numPrecio.Validating += (s, e) => { if (!ValidarPrecio()) e.Cancel = true; };
+            numStock.Validating += (s, e) => { if (!ValidarStock()) e.Cancel = true; };
         }
 
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                // Limpia errores anteriores
+                errorProvider.Clear();
+
+                // Ejecuta validaciones
+                bool ok =
+                    ValidarNombre() &
+                    ValidarDescripcion() &
+                    ValidarPrecio() &
+                    ValidarStock();
+
+                if (!ok)
                 {
-                    MessageBox.Show("El nombre es obligatorio.");
+                    MessageBox.Show("Revise los campos marcados antes de guardar.",
+                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 api.SetToken(Session.Token);
 
-                // Objeto NUEVO (sin Id)
                 var nuevo = new FolderApi.Producto
                 {
                     Nombre = txtNombre.Text.Trim(),
@@ -44,11 +67,11 @@ namespace Semestral___DSIV_GS
                     PagaItbms = chkItbms.Checked
                 };
 
-                // POST (crear)
-                // Si tu API devuelve texto, usa PostTextoAsync
                 await api.PostTextoAsync("api/articulos", nuevo);
 
-                MessageBox.Show("Artículo creado correctamente.");
+                MessageBox.Show("Artículo creado correctamente.",
+                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -57,6 +80,83 @@ namespace Semestral___DSIV_GS
                 MessageBox.Show("Error al crear:\n" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // ---- VALIDACIONES ----
+
+        private bool ValidarNombre()
+        {
+            string nombre = (txtNombre.Text ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                errorProvider.SetError(txtNombre, "El nombre es obligatorio.");
+                return false;
+            }
+
+            if (nombre.Length < 3)
+            {
+                errorProvider.SetError(txtNombre, "El nombre debe tener al menos 3 caracteres.");
+                return false;
+            }
+
+            if (nombre.Length > 255)
+            {
+                errorProvider.SetError(txtNombre, "El nombre no puede exceder 255 caracteres.");
+                return false;
+            }
+
+            errorProvider.SetError(txtNombre, "");
+            return true;
+        }
+
+        private bool ValidarDescripcion()
+        {
+            string desc = (txtDescripcion.Text ?? "").Trim();
+
+            // Si quieres que sea opcional, cambia esta condición:
+            if (string.IsNullOrWhiteSpace(desc))
+            {
+                errorProvider.SetError(txtDescripcion, "La descripción es obligatoria.");
+                return false;
+            }
+
+            if (desc.Length > 255)
+            {
+                errorProvider.SetError(txtDescripcion, "La descripción no puede exceder 255 caracteres.");
+                return false;
+            }
+
+            errorProvider.SetError(txtDescripcion, "");
+            return true;
+        }
+
+        private bool ValidarPrecio()
+        {
+            decimal precio = numPrecio.Value;
+
+            if (precio <= 0)
+            {
+                errorProvider.SetError(numPrecio, "El precio debe ser mayor que 0.");
+                return false;
+            }
+
+            errorProvider.SetError(numPrecio, "");
+            return true;
+        }
+
+        private bool ValidarStock()
+        {
+            int stock = (int)numStock.Value;
+
+            if (stock < 0)
+            {
+                errorProvider.SetError(numStock, "El stock no puede ser negativo.");
+                return false;
+            }
+
+            errorProvider.SetError(numStock, "");
+            return true;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
