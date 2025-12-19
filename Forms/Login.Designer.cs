@@ -41,50 +41,50 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Elephant", 14.25F);
-            this.label2.Location = new System.Drawing.Point(204, 76);
+            this.label2.Location = new System.Drawing.Point(230, 95);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 31);
+            this.label2.Size = new System.Drawing.Size(181, 38);
             this.label2.TabIndex = 1;
             this.label2.Text = "Bienvenido";
             // 
             // txtuser
             // 
-            this.txtuser.Location = new System.Drawing.Point(71, 174);
-            this.txtuser.Margin = new System.Windows.Forms.Padding(4);
+            this.txtuser.Location = new System.Drawing.Point(80, 218);
+            this.txtuser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtuser.Multiline = true;
             this.txtuser.Name = "txtuser";
-            this.txtuser.Size = new System.Drawing.Size(455, 36);
+            this.txtuser.Size = new System.Drawing.Size(511, 44);
             this.txtuser.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(67, 148);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(75, 185);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 22);
+            this.label1.Size = new System.Drawing.Size(87, 26);
             this.label1.TabIndex = 3;
             this.label1.Text = "Usuario";
             // 
             // txtpass
             // 
-            this.txtpass.Location = new System.Drawing.Point(71, 288);
-            this.txtpass.Margin = new System.Windows.Forms.Padding(4);
+            this.txtpass.Location = new System.Drawing.Point(80, 360);
+            this.txtpass.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtpass.Name = "txtpass";
-            this.txtpass.Size = new System.Drawing.Size(455, 22);
+            this.txtpass.Size = new System.Drawing.Size(511, 26);
             this.txtpass.TabIndex = 8;
             this.txtpass.UseSystemPasswordChar = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Sylfaen", 9.75F);
-            this.label3.Location = new System.Drawing.Point(67, 262);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(75, 328);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 22);
+            this.label3.Size = new System.Drawing.Size(124, 26);
             this.label3.TabIndex = 7;
             this.label3.Text = "Contraseña";
             // 
@@ -92,25 +92,25 @@
             // 
             this.lbl_signup.AutoSize = true;
             this.lbl_signup.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbl_signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_signup.Location = new System.Drawing.Point(244, 437);
+            this.lbl_signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_signup.Location = new System.Drawing.Point(274, 546);
             this.lbl_signup.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_signup.Name = "lbl_signup";
-            this.lbl_signup.Size = new System.Drawing.Size(92, 17);
+            this.lbl_signup.Size = new System.Drawing.Size(137, 29);
             this.lbl_signup.TabIndex = 10;
             this.lbl_signup.Text = "Registrarse";
             this.lbl_signup.Click += new System.EventHandler(this.lbl_signup_Click);
             // 
             // btnlogin
             // 
-            this.btnlogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnlogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnlogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnlogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnlogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnlogin.Location = new System.Drawing.Point(71, 370);
-            this.btnlogin.Margin = new System.Windows.Forms.Padding(4);
+            this.btnlogin.Location = new System.Drawing.Point(80, 462);
+            this.btnlogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnlogin.Name = "btnlogin";
-            this.btnlogin.Size = new System.Drawing.Size(456, 50);
+            this.btnlogin.Size = new System.Drawing.Size(513, 62);
             this.btnlogin.TabIndex = 9;
             this.btnlogin.Text = "Iniciar Sesión";
             this.btnlogin.UseVisualStyleBackColor = false;
@@ -118,9 +118,10 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 487);
+            this.BackColor = System.Drawing.Color.FloralWhite;
+            this.ClientSize = new System.Drawing.Size(667, 609);
             this.Controls.Add(this.lbl_signup);
             this.Controls.Add(this.btnlogin);
             this.Controls.Add(this.txtpass);

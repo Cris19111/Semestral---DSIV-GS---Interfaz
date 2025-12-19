@@ -43,48 +43,55 @@
             this.cmbBoxFiltro.FormattingEnabled = true;
             this.cmbBoxFiltro.Items.AddRange(new object[] {
             "Categorias de Busqueda"});
-            this.cmbBoxFiltro.Location = new System.Drawing.Point(522, 31);
+            this.cmbBoxFiltro.Location = new System.Drawing.Point(587, 39);
+            this.cmbBoxFiltro.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbBoxFiltro.Name = "cmbBoxFiltro";
-            this.cmbBoxFiltro.Size = new System.Drawing.Size(125, 28);
+            this.cmbBoxFiltro.Size = new System.Drawing.Size(140, 33);
             this.cmbBoxFiltro.TabIndex = 7;
             this.cmbBoxFiltro.SelectedIndexChanged += new System.EventHandler(this.cmbBoxFiltro_SelectedIndexChanged);
             // 
             // txtFiltro
             // 
             this.txtFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.txtFiltro.Location = new System.Drawing.Point(16, 31);
+            this.txtFiltro.Location = new System.Drawing.Point(18, 39);
+            this.txtFiltro.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.Size = new System.Drawing.Size(500, 26);
+            this.txtFiltro.Size = new System.Drawing.Size(562, 30);
             this.txtFiltro.TabIndex = 6;
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(12, 5);
+            this.lblTitulo.Location = new System.Drawing.Point(14, 6);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(65, 23);
+            this.lblTitulo.Size = new System.Drawing.Size(81, 28);
             this.lblTitulo.TabIndex = 5;
             this.lblTitulo.Text = "Ventas";
             // 
             // dgvFracturas
             // 
+            this.dgvFracturas.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dgvFracturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFracturas.Location = new System.Drawing.Point(12, 78);
+            this.dgvFracturas.GridColor = System.Drawing.SystemColors.Control;
+            this.dgvFracturas.Location = new System.Drawing.Point(19, 103);
+            this.dgvFracturas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvFracturas.Name = "dgvFracturas";
             this.dgvFracturas.RowHeadersWidth = 51;
             this.dgvFracturas.RowTemplate.Height = 24;
-            this.dgvFracturas.Size = new System.Drawing.Size(645, 340);
+            this.dgvFracturas.Size = new System.Drawing.Size(1000, 517);
             this.dgvFracturas.TabIndex = 4;
             this.dgvFracturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFracturas_CellContentClick);
             // 
             // Volver
             // 
-            this.Volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.Volver.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Volver.Location = new System.Drawing.Point(16, 431);
+            this.Volver.ForeColor = System.Drawing.Color.White;
+            this.Volver.Location = new System.Drawing.Point(19, 667);
+            this.Volver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Volver.Name = "Volver";
-            this.Volver.Size = new System.Drawing.Size(117, 45);
+            this.Volver.Size = new System.Drawing.Size(257, 63);
             this.Volver.TabIndex = 17;
             this.Volver.Text = "Volver";
             this.Volver.UseVisualStyleBackColor = false;
@@ -92,11 +99,13 @@
             // 
             // btnFiltro
             // 
-            this.btnFiltro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnFiltro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnFiltro.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFiltro.Location = new System.Drawing.Point(507, 431);
+            this.btnFiltro.ForeColor = System.Drawing.Color.White;
+            this.btnFiltro.Location = new System.Drawing.Point(774, 667);
+            this.btnFiltro.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFiltro.Name = "btnFiltro";
-            this.btnFiltro.Size = new System.Drawing.Size(117, 45);
+            this.btnFiltro.Size = new System.Drawing.Size(257, 63);
             this.btnFiltro.TabIndex = 18;
             this.btnFiltro.Text = "Buscar";
             this.btnFiltro.UseVisualStyleBackColor = false;
@@ -104,15 +113,17 @@
             // 
             // FormHistorial
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 488);
+            this.BackColor = System.Drawing.Color.SeaShell;
+            this.ClientSize = new System.Drawing.Size(1063, 754);
             this.Controls.Add(this.btnFiltro);
             this.Controls.Add(this.Volver);
             this.Controls.Add(this.cmbBoxFiltro);
             this.Controls.Add(this.txtFiltro);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.dgvFracturas);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormHistorial";
             this.Text = "FormHistorial";
             this.Load += new System.EventHandler(this.FormHistorial_Load);
