@@ -95,6 +95,27 @@ namespace Semestral___DSIV_GS.FolderApi
 
             return await response.Content.ReadAsStringAsync();
         }
+        public async Task PutAsync<TRequest>(string endpoint, TRequest data)
+        {
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PutAsync(endpoint, content);
+            string responseJson = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error {(int)response.StatusCode}:\n{responseJson}");
+        }
+
+        public async Task DeleteAsync(string endpoint)
+        {
+            HttpResponseMessage response = await _client.DeleteAsync(endpoint);
+            string responseJson = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error {(int)response.StatusCode}:\n{responseJson}");
+        }
+
 
     }
 }

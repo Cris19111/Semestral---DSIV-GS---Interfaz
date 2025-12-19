@@ -28,10 +28,7 @@ namespace Semestral___DSIV_GS
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.MultiSelect = false;
 
-            // Mapear columnas del diseñador a propiedades
-            colIdProducto.DataPropertyName = nameof(CategoriaDto.Id);
-            colCategoriaProducto.DataPropertyName = nameof(CategoriaDto.Nombre);
-            cant_productos.DataPropertyName = nameof(CategoriaDto.CantidadProductos);
+
 
             dgvProductos.AutoGenerateColumns = false;
             dgvProductos.DataSource = _bsCategorias;

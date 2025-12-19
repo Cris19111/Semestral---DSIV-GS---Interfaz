@@ -101,6 +101,18 @@
     <Compile Include="Forms\FormHistorial.Designer.cs">
       <DependentUpon>FormHistorial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProductoAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProductoAdd.Designer.cs">
+      <DependentUpon>ProductoAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProductoModAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProductoModAdd.Designer.cs">
+      <DependentUpon>ProductoModAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +144,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHistorial.resx">
       <DependentUpon>FormHistorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProductoAdd.resx">
+      <DependentUpon>ProductoAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProductoModAdd.resx">
+      <DependentUpon>ProductoModAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
