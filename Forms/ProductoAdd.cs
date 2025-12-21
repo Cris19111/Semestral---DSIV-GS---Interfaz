@@ -10,6 +10,7 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private readonly ErrorProvider errorProvider;
 
+        // Constructor: inicializa componentes, API y validaciones de campos
         public ProductoAdd()
         {
             InitializeComponent();
@@ -20,18 +21,13 @@ namespace Semestral___DSIV_GS
                 BlinkStyle = ErrorBlinkStyle.NeverBlink
             };
 
-            txtNombre.Text = "";
-            txtDescripcion.Text = "";
-            numPrecio.Value = 0;
-            numStock.Value = 0;
-            chkItbms.Checked = false;
-
             txtNombre.Validating += (s, e) => { if (!ValidarNombre()) e.Cancel = true; };
             txtDescripcion.Validating += (s, e) => { if (!ValidarDescripcion()) e.Cancel = true; };
             numPrecio.Validating += (s, e) => { if (!ValidarPrecio()) e.Cancel = true; };
             numStock.Validating += (s, e) => { if (!ValidarStock()) e.Cancel = true; };
         }
 
+        // Guardar: valida campos y crea el producto vía API
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -79,6 +75,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Valida el nombre del producto
         private bool ValidarNombre()
         {
             string nombre = (txtNombre.Text ?? "").Trim();
@@ -105,6 +102,7 @@ namespace Semestral___DSIV_GS
             return true;
         }
 
+        // Valida la descripción del producto
         private bool ValidarDescripcion()
         {
             string desc = (txtDescripcion.Text ?? "").Trim();
@@ -126,6 +124,7 @@ namespace Semestral___DSIV_GS
             return true;
         }
 
+        // Valida que el precio sea mayor que cero
         private bool ValidarPrecio()
         {
             decimal precio = numPrecio.Value;
@@ -140,6 +139,7 @@ namespace Semestral___DSIV_GS
             return true;
         }
 
+        // Valida que el stock no sea negativo
         private bool ValidarStock()
         {
             int stock = (int)numStock.Value;
@@ -154,6 +154,7 @@ namespace Semestral___DSIV_GS
             return true;
         }
 
+        // Cancelar: cierra el formulario sin guardar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

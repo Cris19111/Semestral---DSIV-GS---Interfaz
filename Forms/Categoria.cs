@@ -1,5 +1,6 @@
 ﻿using Semestral___DSIV_GS.Clases;
 using Semestral___DSIV_GS.FolderApi;
+using Semestral___DSIV_GS.Forms;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,9 +12,7 @@ namespace Semestral___DSIV_GS
     {
         private readonly ApiControl_ api;
         private List<CategoriaDto> categoriasOriginal;
-
         private CategoriaDto categoriaSeleccionada;
-
         private const string ENDPOINT_CATEGORIAS = "api/categorias";
 
         public Categoria()
@@ -21,17 +20,15 @@ namespace Semestral___DSIV_GS
             InitializeComponent();
             api = new ApiControl_();
 
-        
             cmbCategoria.Items.Clear();
             cmbCategoria.Items.Add("Todos");
             cmbCategoria.Items.Add("Id");
             cmbCategoria.Items.Add("Nombre");
+            cmbCategoria.Items.Add("PadreId"); // <- NUEVO
             cmbCategoria.SelectedIndex = 0;
-
 
             txtBuscarProducto.TextChanged += (s, e) => AplicarFiltro();
             cmbCategoria.SelectedIndexChanged += (s, e) => AplicarFiltro();
-
 
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.MultiSelect = false;
@@ -39,50 +36,64 @@ namespace Semestral___DSIV_GS
             dgvProductos.AllowUserToAddRows = false;
             dgvProductos.AllowUserToDeleteRows = false;
 
+            ConfigurarColumnasDgv();
             dgvProductos.SelectionChanged += dgvProductos_SelectionChanged;
-
 
             btnEditarCategoria.Enabled = false;
             btnEliminarCategoria.Enabled = false;
 
-
             btnBuscarProducto.Click += (s, e) => AplicarFiltro();
-            btnFiltrarProducto.Click += (s, e) => AplicarFiltro();
+            btnFiltrarProducto.Click += (s, e) => { txtBuscarProducto.Clear(); AplicarFiltro(); };
 
             btnCrearCategoria.Click += async (s, e) => await CrearCategoriaAsync();
-            // btnEditarCategoria.Click += async (s, e) => await EditarCategoriaAsync();
+            btnEditarCategoria.Click += async (s, e) => await EditarCategoriaAsync();
             btnEliminarCategoria.Click += async (s, e) => await EliminarCategoriaAsync();
-
-
         }
 
-        private async void Categoria_Load(object sender, EventArgs e)
+        private void ConfigurarColumnasDgv()
         {
-            dgvProductos.AutoGenerateColumns = true; 
-            await CargarCategoriasAsync();
+            dgvProductos.AutoGenerateColumns = false;
+            dgvProductos.Columns.Clear();
 
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(CategoriaDto.Id),
+                HeaderText = "Id",
+                Name = "colId",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(CategoriaDto.Nombre),
+                HeaderText = "Nombre",
+                Name = "colNombre",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(CategoriaDto.CategoriaPadreId),
+                HeaderText = "PadreId",
+                Name = "colPadreId",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(CategoriaDto.CantidadProductos),
+                HeaderText = "Cant. Productos",
+                Name = "colCantidadProductos",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
         }
+
+        private async void Categoria_Load(object sender, EventArgs e) => await CargarCategoriasAsync();
 
         private async Task CargarCategoriasAsync()
         {
-       
             try
             {
                 api.SetToken(Session.Token);
-
                 var data = await api.GetAsync<List<CategoriaDto>>(ENDPOINT_CATEGORIAS);
-
-                if (data == null)
-                {
-                    MessageBox.Show("La API devolvió NULL.",
-                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    categoriasOriginal = new List<CategoriaDto>();
-                    dgvProductos.DataSource = categoriasOriginal;
-                    return;
-                }
-
-                categoriasOriginal = data;
+                categoriasOriginal = data ?? new List<CategoriaDto>();
                 dgvProductos.DataSource = categoriasOriginal;
 
                 categoriaSeleccionada = null;
@@ -91,8 +102,8 @@ namespace Semestral___DSIV_GS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar categorías:\n" + ex.ToString(),
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar categorías:\n" + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -116,80 +127,71 @@ namespace Semestral___DSIV_GS
         {
             if (categoriasOriginal == null) return;
 
-            string filtroTexto = (txtBuscarProducto.Text ?? "").Trim().ToLower();
-            string filtroCampo = cmbCategoria.SelectedItem?.ToString() ?? "Todos";
+            string txt = (txtBuscarProducto.Text ?? "").Trim().ToLower();
+            string campo = cmbCategoria.SelectedItem?.ToString() ?? "Todos";
 
-            if (string.IsNullOrWhiteSpace(filtroTexto))
+            if (string.IsNullOrWhiteSpace(txt))
             {
                 dgvProductos.DataSource = categoriasOriginal;
                 return;
             }
 
             List<CategoriaDto> filtradas;
-
-            switch (filtroCampo)
+            switch (campo)
             {
                 case "Id":
-                    filtradas = int.TryParse(filtroTexto, out int id)
+                    filtradas = int.TryParse(txt, out int id)
                         ? categoriasOriginal.FindAll(c => c.Id == id)
                         : categoriasOriginal;
                     break;
-
                 case "Nombre":
-                    filtradas = categoriasOriginal.FindAll(c =>
-                        (c.Nombre ?? "").ToLower().Contains(filtroTexto));
+                    filtradas = categoriasOriginal.FindAll(c => (c.Nombre ?? "").ToLower().Contains(txt));
                     break;
-
-                default: // Todos
+                case "PadreId":
+                    filtradas = int.TryParse(txt, out int pid)
+                        ? categoriasOriginal.FindAll(c => (c.CategoriaPadreId ?? 0) == pid)
+                        : categoriasOriginal.FindAll(c => (c.CategoriaPadreId?.ToString() ?? "").Contains(txt));
+                    break;
+                default:
                     filtradas = categoriasOriginal.FindAll(c =>
-                        c.Id.ToString().Contains(filtroTexto) ||
-                        (c.Nombre ?? "").ToLower().Contains(filtroTexto) ||
-                        c.CantidadProductos.ToString().Contains(filtroTexto));
+                        c.Id.ToString().Contains(txt) ||
+                        (c.Nombre ?? "").ToLower().Contains(txt) ||
+                        (c.CategoriaPadreId?.ToString() ?? "").Contains(txt) ||
+                        c.CantidadProductos.ToString().Contains(txt));
                     break;
             }
-
             dgvProductos.DataSource = filtradas;
         }
-
 
         private async Task EliminarCategoriaAsync()
         {
             if (categoriaSeleccionada == null)
             {
-                MessageBox.Show("Seleccione una categoría.",
-                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Seleccione una categoría.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             var ok = MessageBox.Show(
                 $"¿Eliminar la categoría #{categoriaSeleccionada.Id} ({categoriaSeleccionada.Nombre})?",
-                "Confirmar",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
+                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (ok != DialogResult.Yes) return;
 
             try
             {
                 api.SetToken(Session.Token);
-
-                // DELETE real
                 await api.DeleteAsync($"{ENDPOINT_CATEGORIAS}/{categoriaSeleccionada.Id}");
-
-                MessageBox.Show("Categoría eliminada correctamente.",
-                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // refrescar lista
+                MessageBox.Show("Categoría eliminada correctamente.", "OK",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 await CargarCategoriasAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al eliminar categoría:\n" + ex.ToString(),
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al eliminar categoría:\n" + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void Volver_Click(object sender, EventArgs e)
         {
@@ -197,6 +199,7 @@ namespace Semestral___DSIV_GS
             home.Show();
             Close();
         }
+
         private async Task CrearCategoriaAsync()
         {
             try
@@ -204,9 +207,7 @@ namespace Semestral___DSIV_GS
                 using (var frm = new CategoriaAdd())
                 {
                     if (frm.ShowDialog() == DialogResult.OK)
-                    {
-                        await CargarCategoriasAsync(); // refresca dgv
-                    }
+                        await CargarCategoriasAsync();
                 }
             }
             catch (Exception ex)
@@ -216,5 +217,29 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        private async Task EditarCategoriaAsync()
+        {
+            if (categoriaSeleccionada == null)
+            {
+                MessageBox.Show("Seleccione una categoría para editar.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                // FIX: quitar ';' y pasar la categoría seleccionada al form
+                using (var frm = new CategoriaMod(categoriaSeleccionada) )
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                        await CargarCategoriasAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir formulario de edición:\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

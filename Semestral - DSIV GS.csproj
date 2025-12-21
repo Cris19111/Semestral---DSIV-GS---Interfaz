@@ -158,6 +158,9 @@
     <EmbeddedResource Include="Forms\CategoriaAdd.resx">
       <DependentUpon>CategoriaAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CategoriaMod.resx">
+      <DependentUpon>CategoriaMod.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHistorial.resx">
       <DependentUpon>FormHistorial.cs</DependentUpon>
     </EmbeddedResource>

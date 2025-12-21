@@ -12,6 +12,7 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private List<FolderApi.Producto> productosOriginal;
 
+        // Constructor: inicializa componentes, API y controles de filtrado/tabla
         public Producto()
         {
             InitializeComponent();
@@ -43,6 +44,7 @@ namespace Semestral___DSIV_GS
         }
         private FolderApi.Producto productoSeleccionado;
 
+        // Evento Load: configura columnas automáticas y carga productos desde la API
         private async void Producto_Load(object sender, EventArgs e)
         {
 
@@ -50,6 +52,7 @@ namespace Semestral___DSIV_GS
             await CargarProductos();
         }
 
+        // Maneja el cambio de selección en el DataGridView y habilita botones
         private void dgvProductos_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvProductos.CurrentRow?.DataBoundItem is FolderApi.Producto p)
@@ -65,6 +68,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Carga la lista de productos desde la API y actualiza el DataGridView
         private async Task CargarProductos()
         {
             try
@@ -90,10 +94,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
-
-
-
-
+        // Aplica el filtro seleccionado sobre la lista original y muestra resultados
         private void AplicarFiltro()
         {
             if (productosOriginal == null) return;
@@ -154,6 +155,7 @@ namespace Semestral___DSIV_GS
             dgvProductos.DataSource = filtrados;
         }
 
+        // Interpreta texto como booleano (soporta 'si', 'no', '1', '0', 'true', 'false')
         private bool? ParseBool(string input)
         {
             string s = (input ?? "").Trim().ToLower();
@@ -162,11 +164,13 @@ namespace Semestral___DSIV_GS
             return null;
         }
 
+        // Devuelve el producto seleccionado actualmente en el DataGridView
         private FolderApi.Producto GetSeleccionado()
         {
             return dgvProductos.CurrentRow?.DataBoundItem as FolderApi.Producto;
         }
 
+        // Maneja doble click en fila para abrir el formulario de edición
         private async void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -189,6 +193,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Botón buscar: aplica el filtro
         private void btnBuscarProducto_Click(object sender, EventArgs e)
         {
 
@@ -197,6 +202,7 @@ namespace Semestral___DSIV_GS
 
 
 
+        // Botón volver: vuelve al formulario principal
         private void Volver_Click(object sender, EventArgs e)
         {
             Home h = new Home();
@@ -204,6 +210,7 @@ namespace Semestral___DSIV_GS
             Close();
         }
 
+        // Botón nuevo: abre formulario para crear un producto
         private async void btnNuevo_Click(object sender, EventArgs e)
         {
             try
@@ -223,6 +230,7 @@ namespace Semestral___DSIV_GS
         }
 
 
+        // Botón editar: abre formulario de modificación para el producto seleccionado
         private async void btnEditar_Click(object sender, EventArgs e)
         {
             MessageBox.Show("hola");
@@ -240,6 +248,7 @@ namespace Semestral___DSIV_GS
         }
 
 
+        // Botón eliminar: confirma y elimina el producto seleccionado vía API
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
             var sel = GetSeleccionado();
