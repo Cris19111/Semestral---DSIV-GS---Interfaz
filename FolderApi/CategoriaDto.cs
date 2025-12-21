@@ -10,6 +10,8 @@ namespace Semestral___DSIV_GS.FolderApi
         [JsonPropertyName("nombre")]
         public string Nombre { get; set; } = "";
 
+        [JsonPropertyName("categoriaPadreId")]
+        public int? CategoriaPadreId { get; set; }  // <-- NUEVO: mapea el padre
 
         [JsonPropertyName("cantidadProductos")]
         public int CantidadProductos { get; set; }

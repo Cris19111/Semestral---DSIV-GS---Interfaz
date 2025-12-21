@@ -11,6 +11,7 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private readonly ErrorProvider errorProvider;
 
+        // Constructor: inicializa componentes, proveedor de errores y control de entrada
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace Semestral___DSIV_GS
             this.AcceptButton = btnlogin;
         }
 
+        // Abre el formulario de registro
         private void lbl_signup_Click(object sender, EventArgs e)
         {
             Registro ventana = new Registro();
@@ -39,6 +41,7 @@ namespace Semestral___DSIV_GS
             this.Hide();
         }
 
+        // Maneja el login: valida campos, solicita token y abre la ventana principal
         private async void btnlogin_Click(object sender, EventArgs e)
         {
             try
@@ -74,8 +77,7 @@ namespace Semestral___DSIV_GS
                 api.SetToken(token);
                 Session.Token = token;
 
-                MessageBox.Show("Login exitoso",
-                    "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
                 Home ventana = new Home();
                 ventana.Show();
@@ -101,6 +103,7 @@ namespace Semestral___DSIV_GS
 
 
 
+        // Valida el campo de usuario y muestra errores en el ErrorProvider
         private bool ValidarUsuario()
         {
             string user = (txtuser.Text ?? "").Trim();
@@ -128,6 +131,7 @@ namespace Semestral___DSIV_GS
             return true;
         }
 
+        // Valida la contraseña y muestra errores en el ErrorProvider
         private bool ValidarPassword()
         {
             string pass = txtpass.Text ?? "";
@@ -155,6 +159,7 @@ namespace Semestral___DSIV_GS
             return true;
         }
 
+        // Evento Load del formulario (placeholder)
         private void Form1_Load(object sender, EventArgs e)
         {
         }

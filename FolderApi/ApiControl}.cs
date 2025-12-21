@@ -11,6 +11,7 @@ namespace Semestral___DSIV_GS.FolderApi
     {
         private readonly HttpClient _client;
 
+        // Constructor: configura HttpClient, dirección base y encabezados por defecto
         public ApiControl_()
         {
             var handler = new HttpClientHandler
@@ -25,6 +26,7 @@ namespace Semestral___DSIV_GS.FolderApi
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        // Comprueba si la API está accesible (verifica swagger)
         public async Task<bool> ApiConectadaAsync()
         {
             HttpResponseMessage response =
@@ -33,6 +35,7 @@ namespace Semestral___DSIV_GS.FolderApi
             return response.IsSuccessStatusCode;
         }
 
+        // Realiza una petición GET y deserializa el JSON al tipo T
         public async Task<T> GetAsync<T>(string endpoint)
         {
             HttpResponseMessage response = await _client.GetAsync(endpoint);
@@ -49,6 +52,7 @@ namespace Semestral___DSIV_GS.FolderApi
             );
         }
 
+        // Realiza una petición POST enviando TRequest y deserializa la respuesta a TResponse
         public async Task<TResponse> PostAsync<TRequest, TResponse>(
             string endpoint, TRequest data)
         {
@@ -76,12 +80,14 @@ namespace Semestral___DSIV_GS.FolderApi
             );
         }
 
+        // Establece el token Bearer para la autorización en el cliente
         public void SetToken(string token)
         {
             _client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);
         }
 
+        // Realiza una petición POST y devuelve la respuesta como texto
         public async Task<string> PostTextoAsync<TRequest>(
     string endpoint, TRequest data)
         {
@@ -95,6 +101,8 @@ namespace Semestral___DSIV_GS.FolderApi
 
             return await response.Content.ReadAsStringAsync();
         }
+
+        // Realiza una petición PUT con el cuerpo serializado
         public async Task PutAsync<TRequest>(string endpoint, TRequest data)
         {
             string json = JsonSerializer.Serialize(data);
@@ -107,6 +115,7 @@ namespace Semestral___DSIV_GS.FolderApi
                 throw new Exception($"Error {(int)response.StatusCode}:\n{responseJson}");
         }
 
+        // Realiza una petición DELETE al endpoint indicado
         public async Task DeleteAsync(string endpoint)
         {
             HttpResponseMessage response = await _client.DeleteAsync(endpoint);

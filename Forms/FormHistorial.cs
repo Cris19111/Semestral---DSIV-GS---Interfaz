@@ -12,6 +12,7 @@ namespace Semestral___DSIV_GS
         private ApiControl_ api;
         private List<Fracturas> facturasOriginal;
 
+        // Constructor: inicializa componentes y opciones de filtro
         public FormHistorial()
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace Semestral___DSIV_GS
             cmbBoxFiltro.SelectedIndex = 0;
         }
 
+        // Evento Load: configura DataGridView y carga facturas desde la API
         private async void FormHistorial_Load(object sender, EventArgs e)
         {
             dgvFracturas.AutoGenerateColumns = true;
@@ -30,6 +32,7 @@ namespace Semestral___DSIV_GS
             MessageBox.Show("La API devolvió NULL.");
         }
 
+        // Obtiene la lista de facturas desde la API y guarda copia original
         private async Task CargarFacturasAsync()
         {
             try
@@ -60,15 +63,19 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Evento texto del filtro: (puede invocar AplicarFiltro)
         private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
   
         }
 
+        // Evento cambio de filtro seleccionado: (puede invocar AplicarFiltro)
         private void cmbBoxFiltro_SelectedIndexChanged(object sender, EventArgs e)
         {
       
         }
+
+        // Aplica el filtro seleccionado sobre la lista original y muestra resultados
         private void AplicarFiltro()
         {
             if (facturasOriginal == null) return;
@@ -109,6 +116,7 @@ namespace Semestral___DSIV_GS
             dgvFracturas.DataSource = filtradas;
         }
 
+        // Botón volver: regresa al formulario principal
         private void Volver_Click(object sender, EventArgs e)
         {
             Home ventan = new Home();
@@ -116,10 +124,12 @@ namespace Semestral___DSIV_GS
             this.Close();
         }
 
+        // Evento click en celdas (placeholder)
         private void dgvFracturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
 
+        // Botón filtro: aplica el filtro actual
         private void btnFiltro_Click(object sender, EventArgs e)
         {
             AplicarFiltro();
