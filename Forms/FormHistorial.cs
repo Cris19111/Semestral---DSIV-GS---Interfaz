@@ -12,7 +12,7 @@ namespace Semestral___DSIV_GS
         private ApiControl_ api;
         private List<Fracturas> facturasOriginal;
 
-        // Constructor: inicializa componentes y opciones de filtro
+       
         public FormHistorial()
         {
             InitializeComponent();

@@ -12,11 +12,13 @@ namespace Semestral___DSIV_GS
 {
     public partial class Home : Form
     {
+        // Constructor: inicializa componentes del formulario Home
         public Home()
         {
             InitializeComponent();
         }
 
+        // Abre la ventana de historial de ventas
         private void btnVentas_Click(object sender, EventArgs e)
         {
             FormHistorial ventana = new FormHistorial();
@@ -24,6 +26,7 @@ namespace Semestral___DSIV_GS
             this.Hide();
         }
 
+        // Abre la ventana de productos
         private void btn_productos_Click(object sender, EventArgs e)
         {
             Producto venta = new Producto();
@@ -31,6 +34,7 @@ namespace Semestral___DSIV_GS
             this.Hide();
         }
 
+        // Cierra la sesión y vuelve al formulario de login
         private void lbl_logout_Click(object sender, EventArgs e)
         {
 
@@ -44,10 +48,19 @@ namespace Semestral___DSIV_GS
 
         }
 
+        // Abre la ventana de categorías
         private void btn_categorias_Click(object sender, EventArgs e)
         {
             Categoria venta = new Categoria();
             venta.Show();
+            this.Close();
+        }
+
+        // Abre la ventana de órdenes
+        private void btnOrdenes_Click(object sender, EventArgs e)
+        {
+            Ordenes ventana = new Ordenes();
+            ventana.Show();
             this.Close();
         }
     }

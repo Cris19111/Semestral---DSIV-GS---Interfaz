@@ -33,7 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtpass = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lbl_signup = new System.Windows.Forms.Label();
             this.btnlogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -41,12 +40,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Elephant", 14.25F);
-            this.label2.Location = new System.Drawing.Point(230, 95);
+            this.label2.Location = new System.Drawing.Point(183, 92);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 38);
+            this.label2.Size = new System.Drawing.Size(300, 38);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Bienvenido";
+            this.label2.Text = "Bienvenido Sr Yeyo";
             // 
             // txtuser
             // 
@@ -88,19 +87,6 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Contraseña";
             // 
-            // lbl_signup
-            // 
-            this.lbl_signup.AutoSize = true;
-            this.lbl_signup.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbl_signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_signup.Location = new System.Drawing.Point(274, 546);
-            this.lbl_signup.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_signup.Name = "lbl_signup";
-            this.lbl_signup.Size = new System.Drawing.Size(137, 29);
-            this.lbl_signup.TabIndex = 10;
-            this.lbl_signup.Text = "Registrarse";
-            this.lbl_signup.Click += new System.EventHandler(this.lbl_signup_Click);
-            // 
             // btnlogin
             // 
             this.btnlogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
@@ -121,8 +107,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FloralWhite;
-            this.ClientSize = new System.Drawing.Size(667, 609);
-            this.Controls.Add(this.lbl_signup);
+            this.ClientSize = new System.Drawing.Size(667, 799);
             this.Controls.Add(this.btnlogin);
             this.Controls.Add(this.txtpass);
             this.Controls.Add(this.label3);
@@ -145,7 +130,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtpass;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lbl_signup;
         private System.Windows.Forms.Button btnlogin;
     }
 }

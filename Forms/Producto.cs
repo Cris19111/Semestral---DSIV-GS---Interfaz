@@ -12,7 +12,7 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private List<FolderApi.Producto> productosOriginal;
 
-        // Constructor: inicializa componentes, API y controles de filtrado/tabla
+        
         public Producto()
         {
             InitializeComponent();

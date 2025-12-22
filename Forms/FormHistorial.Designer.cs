@@ -62,10 +62,10 @@
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Font = new System.Drawing.Font("Elephant", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(14, 6);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(81, 28);
+            this.lblTitulo.Size = new System.Drawing.Size(146, 47);
             this.lblTitulo.TabIndex = 5;
             this.lblTitulo.Text = "Ventas";
             // 
@@ -102,7 +102,7 @@
             this.btnFiltro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnFiltro.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFiltro.ForeColor = System.Drawing.Color.White;
-            this.btnFiltro.Location = new System.Drawing.Point(774, 667);
+            this.btnFiltro.Location = new System.Drawing.Point(762, 22);
             this.btnFiltro.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFiltro.Name = "btnFiltro";
             this.btnFiltro.Size = new System.Drawing.Size(257, 63);

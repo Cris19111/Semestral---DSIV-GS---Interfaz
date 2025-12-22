@@ -11,7 +11,7 @@ namespace Semestral___DSIV_GS.FolderApi
     {
         private readonly HttpClient _client;
 
-        // Constructor: configura HttpClient, dirección base y encabezados por defecto
+        
         public ApiControl_()
         {
             var handler = new HttpClientHandler
