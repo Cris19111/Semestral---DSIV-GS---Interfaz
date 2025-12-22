@@ -11,45 +11,32 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private readonly ErrorProvider errorProvider;
 
-        
         public Form1()
         {
             InitializeComponent();
-
             txtpass.UseSystemPasswordChar = true;
+
             api = new ApiControl_();
-
-
-            errorProvider = new ErrorProvider
-            {
-                BlinkStyle = ErrorBlinkStyle.NeverBlink
-            };
-
+            errorProvider = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
 
             txtuser.Validating += (s, e) => { if (!ValidarUsuario()) e.Cancel = true; };
             txtpass.Validating += (s, e) => { if (!ValidarPassword()) e.Cancel = true; };
-
-
             this.AcceptButton = btnlogin;
         }
 
-        // Abre el formulario de registro
         private void lbl_signup_Click(object sender, EventArgs e)
         {
-            Registro ventana = new Registro();
+            var ventana = new Registro();
             ventana.Show();
             this.Hide();
         }
 
-        // Maneja el login: valida campos, solicita token y abre la ventana principal
         private async void btnlogin_Click(object sender, EventArgs e)
         {
             try
             {
                 errorProvider.Clear();
-
-                bool ok = ValidarUsuario() & ValidarPassword();
-                if (!ok)
+                if (!(ValidarUsuario() & ValidarPassword()))
                 {
                     MessageBox.Show("Revise los campos marcados antes de continuar.",
                         "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -65,21 +52,30 @@ namespace Semestral___DSIV_GS
                     Contrasena = txtpass.Text
                 };
 
-                string token = await api.PostTextoAsync("api/auth/login", request);
+              
+                var resp = await api.PostAsync<LoginRequest, LoginResponse>("api/auth/login", request);
 
-                if (string.IsNullOrWhiteSpace(token))
+                if (resp?.Usuario == null)
                 {
-                    MessageBox.Show("El servidor no devolvió un token.",
+                    MessageBox.Show("Respuesta inválida del servidor.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                api.SetToken(token);
-                Session.Token = token;
+                var rol = resp.Usuario.Rol?.Trim().ToLowerInvariant();
+                if (rol != "admin")
+                {
+                    MessageBox.Show(
+                        $"Acceso denegado. Este panel es solo para administradores.\nRol detectado: {resp.Usuario.Rol}",
+                        "Permisos",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
 
 
-
-                Home ventana = new Home();
+                var ventana = new Home();
                 ventana.Show();
                 this.Hide();
             }
@@ -90,7 +86,6 @@ namespace Semestral___DSIV_GS
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -101,67 +96,24 @@ namespace Semestral___DSIV_GS
             }
         }
 
-
-
-        // Valida el campo de usuario y muestra errores en el ErrorProvider
         private bool ValidarUsuario()
         {
             string user = (txtuser.Text ?? "").Trim();
-
-            if (string.IsNullOrWhiteSpace(user))
-            {
-                errorProvider.SetError(txtuser, "El usuario es obligatorio.");
-                return false;
-            }
-
-
-            if (user.Length < 3)
-            {
-                errorProvider.SetError(txtuser, "El usuario debe tener al menos 3 caracteres.");
-                return false;
-            }
-
-            if (user.Length > 50)
-            {
-                errorProvider.SetError(txtuser, "El usuario no puede exceder 50 caracteres.");
-                return false;
-            }
-
-            errorProvider.SetError(txtuser, "");
-            return true;
+            if (string.IsNullOrWhiteSpace(user)) { errorProvider.SetError(txtuser, "El usuario es obligatorio."); return false; }
+            if (user.Length < 3) { errorProvider.SetError(txtuser, "El usuario debe tener al menos 3 caracteres."); return false; }
+            if (user.Length > 50) { errorProvider.SetError(txtuser, "El usuario no puede exceder 50 caracteres."); return false; }
+            errorProvider.SetError(txtuser, ""); return true;
         }
 
-        // Valida la contraseña y muestra errores en el ErrorProvider
         private bool ValidarPassword()
         {
             string pass = txtpass.Text ?? "";
-
-            if (string.IsNullOrWhiteSpace(pass))
-            {
-                errorProvider.SetError(txtpass, "La contraseña es obligatoria.");
-                return false;
-            }
-
-
-            if (pass.Length < 6)
-            {
-                errorProvider.SetError(txtpass, "La contraseña debe tener al menos 6 caracteres.");
-                return false;
-            }
-
-            if (pass.Length > 100)
-            {
-                errorProvider.SetError(txtpass, "La contraseña no puede exceder 100 caracteres.");
-                return false;
-            }
-
-            errorProvider.SetError(txtpass, "");
-            return true;
+            if (string.IsNullOrWhiteSpace(pass)) { errorProvider.SetError(txtpass, "La contraseña es obligatoria."); return false; }
+            if (pass.Length < 6) { errorProvider.SetError(txtpass, "La contraseña debe tener al menos 6 caracteres."); return false; }
+            if (pass.Length > 100) { errorProvider.SetError(txtpass, "La contraseña no puede exceder 100 caracteres."); return false; }
+            errorProvider.SetError(txtpass, ""); return true;
         }
 
-        // Evento Load del formulario (placeholder)
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
+        private void Form1_Load(object sender, EventArgs e) { }
     }
 }

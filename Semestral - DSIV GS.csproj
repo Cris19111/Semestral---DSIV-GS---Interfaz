@@ -87,6 +87,7 @@
     <Compile Include="FolderApi\InsertarCategoriaRequestDto.cs" />
     <Compile Include="FolderApi\OrdenDto.cs" />
     <Compile Include="FolderApi\Producto.cs" />
+    <Compile Include="Forms\AuthDtos.cs" />
     <Compile Include="Forms\Categoria.cs">
       <SubType>Form</SubType>
     </Compile>
