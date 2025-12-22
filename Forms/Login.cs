@@ -11,7 +11,7 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private readonly ErrorProvider errorProvider;
 
-        // Constructor: inicializa componentes, proveedor de errores y control de entrada
+        
         public Form1()
         {
             InitializeComponent();

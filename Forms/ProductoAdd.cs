@@ -10,7 +10,7 @@ namespace Semestral___DSIV_GS
         private readonly ApiControl_ api;
         private readonly ErrorProvider errorProvider;
 
-        // Constructor: inicializa componentes, API y validaciones de campos
+        
         public ProductoAdd()
         {
             InitializeComponent();

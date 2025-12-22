@@ -11,10 +11,11 @@ namespace Semestral___DSIV_GS
     public partial class Categoria : Form
     {
         private readonly ApiControl_ api;
-        private List<CategoriaDto> categoriasOriginal;
-        private CategoriaDto categoriaSeleccionada;
+        private List<FolderApi.Categoria> categoriasOriginal;
+        private FolderApi.Categoria categoriaSeleccionada;
         private const string ENDPOINT_CATEGORIAS = "api/categorias";
 
+        
         public Categoria()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace Semestral___DSIV_GS
             cmbCategoria.Items.Add("Todos");
             cmbCategoria.Items.Add("Id");
             cmbCategoria.Items.Add("Nombre");
-            cmbCategoria.Items.Add("PadreId"); // <- NUEVO
+            cmbCategoria.Items.Add("PadreId"); 
             cmbCategoria.SelectedIndex = 0;
 
             txtBuscarProducto.TextChanged += (s, e) => AplicarFiltro();
@@ -32,9 +33,6 @@ namespace Semestral___DSIV_GS
 
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.MultiSelect = false;
-            dgvProductos.ReadOnly = true;
-            dgvProductos.AllowUserToAddRows = false;
-            dgvProductos.AllowUserToDeleteRows = false;
 
             ConfigurarColumnasDgv();
             dgvProductos.SelectionChanged += dgvProductos_SelectionChanged;
@@ -50,6 +48,7 @@ namespace Semestral___DSIV_GS
             btnEliminarCategoria.Click += async (s, e) => await EliminarCategoriaAsync();
         }
 
+        // Configura columnas personalizadas para el DataGridView de categorías
         private void ConfigurarColumnasDgv()
         {
             dgvProductos.AutoGenerateColumns = false;
@@ -57,43 +56,45 @@ namespace Semestral___DSIV_GS
 
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(CategoriaDto.Id),
+                DataPropertyName = nameof(FolderApi.Categoria.Id),
                 HeaderText = "Id",
                 Name = "colId",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(CategoriaDto.Nombre),
+                DataPropertyName = nameof(FolderApi.Categoria.Nombre),
                 HeaderText = "Nombre",
                 Name = "colNombre",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(CategoriaDto.CategoriaPadreId),
+                DataPropertyName = nameof(FolderApi.Categoria.CategoriaPadreId),
                 HeaderText = "PadreId",
                 Name = "colPadreId",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = nameof(CategoriaDto.CantidadProductos),
+                DataPropertyName = nameof(FolderApi.Categoria.CantidadProductos),
                 HeaderText = "Cant. Productos",
                 Name = "colCantidadProductos",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
         }
 
+        // Evento Load: carga las categorías al iniciar el formulario
         private async void Categoria_Load(object sender, EventArgs e) => await CargarCategoriasAsync();
 
+        // Obtiene las categorías desde la API y actualiza la vista
         private async Task CargarCategoriasAsync()
         {
             try
             {
                 api.SetToken(Session.Token);
-                var data = await api.GetAsync<List<CategoriaDto>>(ENDPOINT_CATEGORIAS);
-                categoriasOriginal = data ?? new List<CategoriaDto>();
+                var data = await api.GetAsync<List<FolderApi.Categoria>>(ENDPOINT_CATEGORIAS);
+                categoriasOriginal = data ?? new List<FolderApi.Categoria>();
                 dgvProductos.DataSource = categoriasOriginal;
 
                 categoriaSeleccionada = null;
@@ -107,9 +108,10 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Maneja cambio de selección en el DataGridView y habilita botones según selección
         private void dgvProductos_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvProductos.CurrentRow?.DataBoundItem is CategoriaDto c)
+            if (dgvProductos.CurrentRow?.DataBoundItem is FolderApi.Categoria c)
             {
                 categoriaSeleccionada = c;
                 btnEditarCategoria.Enabled = true;
@@ -123,6 +125,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Aplica el filtro seleccionado sobre la lista original y muestra resultados
         private void AplicarFiltro()
         {
             if (categoriasOriginal == null) return;
@@ -136,7 +139,7 @@ namespace Semestral___DSIV_GS
                 return;
             }
 
-            List<CategoriaDto> filtradas;
+            List<FolderApi.Categoria> filtradas;
             switch (campo)
             {
                 case "Id":
@@ -163,6 +166,7 @@ namespace Semestral___DSIV_GS
             dgvProductos.DataSource = filtradas;
         }
 
+        // Elimina la categoría seleccionada después de confirmar con el usuario
         private async Task EliminarCategoriaAsync()
         {
             if (categoriaSeleccionada == null)
@@ -193,6 +197,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Botón volver: vuelve al formulario principal
         private void Volver_Click(object sender, EventArgs e)
         {
             var home = new Home();
@@ -200,6 +205,7 @@ namespace Semestral___DSIV_GS
             Close();
         }
 
+        // Abre el formulario para crear una nueva categoría
         private async Task CrearCategoriaAsync()
         {
             try
@@ -217,6 +223,7 @@ namespace Semestral___DSIV_GS
             }
         }
 
+        // Abre el formulario para editar la categoría seleccionada
         private async Task EditarCategoriaAsync()
         {
             if (categoriaSeleccionada == null)
@@ -228,7 +235,7 @@ namespace Semestral___DSIV_GS
 
             try
             {
-                // FIX: quitar ';' y pasar la categoría seleccionada al form
+                
                 using (var frm = new CategoriaMod(categoriaSeleccionada) )
                 {
                     if (frm.ShowDialog() == DialogResult.OK)

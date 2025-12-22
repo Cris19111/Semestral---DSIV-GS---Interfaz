@@ -16,7 +16,7 @@ namespace Semestral___DSIV_GS.Forms
     {
         private readonly ApiControl_ api = new ApiControl_();
         private readonly ErrorProvider ep = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
-        private readonly CategoriaDto seleccionado;
+        private readonly FolderApi.Categoria seleccionado;
         private const string ENDPOINT = "api/categorias";
 
         // Nombre actual (no editable, pero lo necesitamos para PUT)
@@ -25,7 +25,7 @@ namespace Semestral___DSIV_GS.Forms
         // Controles esperados:
         // txtId (TextBox, ReadOnly), txtNombre (TextBox, ReadOnly), cboPadre (ComboBox DL), btnGuardar, btnCancelar
 
-        public CategoriaMod(CategoriaDto seleccionadoRow)
+        public CategoriaMod(FolderApi.Categoria seleccionadoRow)
         {
             InitializeComponent();
             seleccionado = seleccionadoRow ?? throw new ArgumentNullException(nameof(seleccionadoRow));
