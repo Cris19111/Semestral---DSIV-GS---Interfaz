@@ -22,10 +22,7 @@ namespace Semestral___DSIV_GS
             InitializeComponent();
         }
 
-        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
 
         private void Volver_Click(object sender, EventArgs e)
         {

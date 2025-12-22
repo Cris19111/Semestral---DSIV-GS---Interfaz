@@ -34,8 +34,7 @@ namespace Semestral___DSIV_GS
 
 
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProductos.MultiSelect = false;
-            dgvProductos.ReadOnly = true;
+
 
             dgvProductos.SelectionChanged += dgvProductos_SelectionChanged;
 
@@ -102,7 +101,7 @@ namespace Semestral___DSIV_GS
             string filtroTexto = (txtBuscarProducto.Text ?? "").Trim().ToLower();
             string filtroCampo = cmbFiltrarProducto.SelectedItem?.ToString() ?? "Todos";
 
-            if (string.IsNullOrWhiteSpace(filtroTexto) || filtroCampo == "Todos")
+            if (filtroCampo == "Todos")
             {
                 dgvProductos.DataSource = productosOriginal;
                 return;
@@ -112,6 +111,7 @@ namespace Semestral___DSIV_GS
 
             switch (filtroCampo)
             {
+
                 case "Id":
                     filtrados = int.TryParse(filtroTexto, out int id)
                         ? productosOriginal.FindAll(p => p.Id == id)
@@ -141,10 +141,12 @@ namespace Semestral___DSIV_GS
                     break;
 
                 case "PagaItbms":
-                    bool? paga = ParseBool(filtroTexto);
+
+                    bool? paga = true;
                     filtrados = paga.HasValue
                         ? productosOriginal.FindAll(p => p.PagaItbms == paga.Value)
                         : productosOriginal;
+
                     break;
 
                 default:
@@ -155,14 +157,6 @@ namespace Semestral___DSIV_GS
             dgvProductos.DataSource = filtrados;
         }
 
-        // Interpreta texto como booleano (soporta 'si', 'no', '1', '0', 'true', 'false')
-        private bool? ParseBool(string input)
-        {
-            string s = (input ?? "").Trim().ToLower();
-            if (s == "true" || s == "1" || s == "si" || s == "sí") return true;
-            if (s == "false" || s == "0" || s == "no") return false;
-            return null;
-        }
 
         // Devuelve el producto seleccionado actualmente en el DataGridView
         private FolderApi.Producto GetSeleccionado()
@@ -233,7 +227,7 @@ namespace Semestral___DSIV_GS
         // Botón editar: abre formulario de modificación para el producto seleccionado
         private async void btnEditar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("hola");
+            
             if (productoSeleccionado == null)
             {
                 MessageBox.Show("Seleccione un producto.");
@@ -282,6 +276,7 @@ namespace Semestral___DSIV_GS
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
     }
 }

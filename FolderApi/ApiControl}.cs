@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -36,24 +37,40 @@ namespace Semestral___DSIV_GS.FolderApi
         }
 
         // Realiza una petición GET y deserializa el JSON al tipo T
+        private static readonly JsonSerializerOptions JsonOpts =
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
         public async Task<T> GetAsync<T>(string endpoint)
         {
-            HttpResponseMessage response = await _client.GetAsync(endpoint);
-            response.EnsureSuccessStatusCode();
+            var uri = BuildAbsoluteUrl(endpoint); // asegúrate de tener este helper; si no, usa new Uri(_client.BaseAddress, endpoint.TrimStart('/'))
+            var req = new HttpRequestMessage(HttpMethod.Get, uri);
+            HttpResponseMessage res = null;
 
-            string json = await response.Content.ReadAsStringAsync();
+            try
+            {
+                res = await _client.SendAsync(req);
+                var payload = await res.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<T>(
-                json,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                }
-            );
+                if (!res.IsSuccessStatusCode)
+                    throw BuildHttpErrorException(req, res, payload); // <- verás el body del 400
+
+                return JsonSerializer.Deserialize<T>(payload, JsonOpts);
+            }
+            finally
+            {
+                if (res != null) res.Dispose();
+                req.Dispose();
+            }
         }
 
-        // Realiza una petición POST enviando TRequest y deserializa la respuesta a TResponse
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(
+
+
+
+    
+
+
+// Realiza una petición POST enviando TRequest y deserializa la respuesta a TResponse
+public async Task<TResponse> PostAsync<TRequest, TResponse>(
             string endpoint, TRequest data)
         {
             string json = JsonSerializer.Serialize(data);
@@ -123,6 +140,28 @@ namespace Semestral___DSIV_GS.FolderApi
 
             if (!response.IsSuccessStatusCode)
                 throw new Exception($"Error {(int)response.StatusCode}:\n{responseJson}");
+        }
+
+        private static Exception BuildHttpErrorException(HttpRequestMessage req, HttpResponseMessage res, string body)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("HTTP " + req.Method + " " + req.RequestUri);
+            sb.AppendLine("Status: " + ((int)res.StatusCode) + " " + res.ReasonPhrase);
+            string shortBody = body != null && body.Length > 2000 ? body.Substring(0, 2000) + "...(truncado)" : (body ?? string.Empty);
+            sb.AppendLine("Response body:").AppendLine(shortBody);
+
+            if (res.StatusCode == HttpStatusCode.BadRequest)
+                sb.AppendLine("Sugerencia: verifica ruta, token, query/body y shape del DTO.");
+
+            return new HttpRequestException(sb.ToString());
+        }
+
+        private Uri BuildAbsoluteUrl(string endpoint)
+        {
+            Uri abs;
+            if (Uri.TryCreate(endpoint, UriKind.Absolute, out abs)) return abs;
+            var trimmed = (endpoint ?? string.Empty).TrimStart('/');
+            return new Uri(_client.BaseAddress, trimmed);
         }
 
 

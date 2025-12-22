@@ -34,13 +34,16 @@
             this.txtpass = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnlogin = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Elephant", 14.25F);
-            this.label2.Location = new System.Drawing.Point(183, 92);
+            this.label2.Location = new System.Drawing.Point(177, 96);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(300, 38);
@@ -49,7 +52,7 @@
             // 
             // txtuser
             // 
-            this.txtuser.Location = new System.Drawing.Point(80, 218);
+            this.txtuser.Location = new System.Drawing.Point(75, 323);
             this.txtuser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtuser.Multiline = true;
             this.txtuser.Name = "txtuser";
@@ -60,7 +63,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(75, 185);
+            this.label1.Location = new System.Drawing.Point(70, 290);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 26);
@@ -69,7 +72,7 @@
             // 
             // txtpass
             // 
-            this.txtpass.Location = new System.Drawing.Point(80, 360);
+            this.txtpass.Location = new System.Drawing.Point(75, 465);
             this.txtpass.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtpass.Name = "txtpass";
             this.txtpass.Size = new System.Drawing.Size(511, 26);
@@ -80,7 +83,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(75, 328);
+            this.label3.Location = new System.Drawing.Point(70, 433);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 26);
@@ -93,7 +96,7 @@
             this.btnlogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnlogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnlogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnlogin.Location = new System.Drawing.Point(80, 462);
+            this.btnlogin.Location = new System.Drawing.Point(75, 567);
             this.btnlogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnlogin.Name = "btnlogin";
             this.btnlogin.Size = new System.Drawing.Size(513, 62);
@@ -101,6 +104,15 @@
             this.btnlogin.Text = "Iniciar Sesión";
             this.btnlogin.UseVisualStyleBackColor = false;
             this.btnlogin.Click += new System.EventHandler(this.btnlogin_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Semestral___DSIV_GS.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(115, 61);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(414, 387);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -111,13 +123,15 @@
             this.Controls.Add(this.btnlogin);
             this.Controls.Add(this.txtpass);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtuser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtuser);
+            this.Controls.Add(this.pictureBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +145,7 @@
         private System.Windows.Forms.TextBox txtpass;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnlogin;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -37,6 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -51,12 +52,13 @@
             this.btn_productos.Font = new System.Drawing.Font("Elephant", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_productos.ForeColor = System.Drawing.Color.Transparent;
             this.btn_productos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_productos.Location = new System.Drawing.Point(31, 217);
+            this.btn_productos.Location = new System.Drawing.Point(22, 326);
             this.btn_productos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_productos.Name = "btn_productos";
-            this.btn_productos.Size = new System.Drawing.Size(212, 69);
+            this.btn_productos.Size = new System.Drawing.Size(346, 69);
             this.btn_productos.TabIndex = 9;
             this.btn_productos.Text = "Productos";
+            this.btn_productos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_productos.UseVisualStyleBackColor = false;
             this.btn_productos.Click += new System.EventHandler(this.btn_productos_Click);
             // 
@@ -69,12 +71,13 @@
             this.btn_categorias.Font = new System.Drawing.Font("Elephant", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_categorias.ForeColor = System.Drawing.Color.Transparent;
             this.btn_categorias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_categorias.Location = new System.Drawing.Point(13, 186);
+            this.btn_categorias.Location = new System.Drawing.Point(22, 230);
             this.btn_categorias.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_categorias.Name = "btn_categorias";
-            this.btn_categorias.Size = new System.Drawing.Size(212, 69);
+            this.btn_categorias.Size = new System.Drawing.Size(358, 69);
             this.btn_categorias.TabIndex = 8;
             this.btn_categorias.Text = "Categorias";
+            this.btn_categorias.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_categorias.UseVisualStyleBackColor = false;
             this.btn_categorias.Click += new System.EventHandler(this.btn_categorias_Click);
             // 
@@ -87,12 +90,13 @@
             this.btnVentas.Font = new System.Drawing.Font("Elephant", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentas.ForeColor = System.Drawing.Color.Transparent;
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(16, 42);
+            this.btnVentas.Location = new System.Drawing.Point(22, 151);
             this.btnVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(212, 69);
+            this.btnVentas.Size = new System.Drawing.Size(346, 69);
             this.btnVentas.TabIndex = 7;
             this.btnVentas.Text = "Ventas";
+            this.btnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVentas.UseVisualStyleBackColor = false;
             this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
@@ -114,14 +118,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.label1.Font = new System.Drawing.Font("Elephant", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.IndianRed;
-            this.label1.Location = new System.Drawing.Point(-10, 7);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(31, 35);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(413, 46);
+            this.label1.Size = new System.Drawing.Size(267, 46);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Distribuidora El Yeyo";
+            this.label1.Text = "Distribuidora";
             // 
             // btnOrdenes
             // 
@@ -132,24 +137,29 @@
             this.btnOrdenes.Font = new System.Drawing.Font("Elephant", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOrdenes.ForeColor = System.Drawing.Color.Transparent;
             this.btnOrdenes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrdenes.Location = new System.Drawing.Point(31, 296);
+            this.btnOrdenes.Location = new System.Drawing.Point(22, 405);
             this.btnOrdenes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOrdenes.Name = "btnOrdenes";
-            this.btnOrdenes.Size = new System.Drawing.Size(212, 69);
+            this.btnOrdenes.Size = new System.Drawing.Size(346, 69);
             this.btnOrdenes.TabIndex = 10;
             this.btnOrdenes.Text = "Ordenes";
+            this.btnOrdenes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOrdenes.UseVisualStyleBackColor = false;
             this.btnOrdenes.Click += new System.EventHandler(this.btnOrdenes_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnOrdenes);
             this.panel1.Controls.Add(this.btnVentas);
+            this.panel1.Controls.Add(this.btn_categorias);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btn_productos);
-            this.panel1.Location = new System.Drawing.Point(-18, 65);
+            this.panel1.Location = new System.Drawing.Point(-18, -4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(362, 764);
+            this.panel1.Size = new System.Drawing.Size(362, 833);
             this.panel1.TabIndex = 11;
             // 
             // pictureBox1
@@ -167,10 +177,23 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.panel2.Controls.Add(this.lbl_logout);
-            this.panel2.Location = new System.Drawing.Point(904, 9);
+            this.panel2.Location = new System.Drawing.Point(22, 666);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(166, 67);
             this.panel2.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.label2.Font = new System.Drawing.Font("Elephant", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(31, 90);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(157, 46);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "El Yeyo";
             // 
             // Home
             // 
@@ -179,19 +202,16 @@
             this.BackColor = System.Drawing.Color.FloralWhite;
             this.ClientSize = new System.Drawing.Size(1066, 825);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btn_categorias);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Home";
             this.Text = "Home";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -206,5 +226,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label2;
     }
 }
