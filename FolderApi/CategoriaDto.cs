@@ -2,7 +2,7 @@
 
 namespace Semestral___DSIV_GS.FolderApi
 {
-    public class Categoria
+    public class CategoriaDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -11,9 +11,8 @@ namespace Semestral___DSIV_GS.FolderApi
         public string Nombre { get; set; } = "";
 
         [JsonPropertyName("categoriaPadreId")]
-        public int? CategoriaPadreId { get; set; }  
+        public int? CategoriaPadreId { get; set; }
 
-        [JsonPropertyName("cantidadProductos")]
-        public int CantidadProductos { get; set; }
+
     }
 }

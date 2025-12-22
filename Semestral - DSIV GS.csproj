@@ -79,8 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\PadreOption.cs" />
     <Compile Include="FolderApi\ArticulosResponse.cs" />
-    <Compile Include="FolderApi\Categoria.cs" />
+    <Compile Include="FolderApi\CategoriaArbolDto.cs" />
+    <Compile Include="FolderApi\CategoriaDto.cs" />
+    <Compile Include="FolderApi\CategoriaPutDto.cs" />
+    <Compile Include="FolderApi\InsertarCategoriaRequestDto.cs" />
     <Compile Include="FolderApi\OrdenDto.cs" />
     <Compile Include="FolderApi\Producto.cs" />
     <Compile Include="Forms\Categoria.cs">
@@ -119,6 +123,12 @@
     </Compile>
     <Compile Include="Forms\Ordenes.Designer.cs">
       <DependentUpon>Ordenes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrdenMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrdenMod.Designer.cs">
+      <DependentUpon>OrdenMod.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ProductoAdd.cs">
       <SubType>Form</SubType>
@@ -172,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Ordenes.resx">
       <DependentUpon>Ordenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrdenMod.resx">
+      <DependentUpon>OrdenMod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProductoAdd.resx">
       <DependentUpon>ProductoAdd.cs</DependentUpon>

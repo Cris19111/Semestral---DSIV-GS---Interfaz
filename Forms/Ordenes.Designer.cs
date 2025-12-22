@@ -34,6 +34,7 @@
             this.txtFiltro = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnCambiarEstado = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +77,6 @@
             this.btnFiltro.TabIndex = 20;
             this.btnFiltro.Text = "Buscar";
             this.btnFiltro.UseVisualStyleBackColor = false;
-            this.btnFiltro.Click += new System.EventHandler(this.btnFiltro_Click);
             // 
             // txtFiltro
             // 
@@ -111,12 +111,27 @@
             this.label1.Text = "Ordenes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnCambiarEstado
+            // 
+            this.btnCambiarEstado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.btnCambiarEstado.Font = new System.Drawing.Font("Sylfaen", 12F);
+            this.btnCambiarEstado.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarEstado.Location = new System.Drawing.Point(979, 694);
+            this.btnCambiarEstado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnCambiarEstado.Name = "btnCambiarEstado";
+            this.btnCambiarEstado.Size = new System.Drawing.Size(132, 56);
+            this.btnCambiarEstado.TabIndex = 22;
+            this.btnCambiarEstado.Text = "Estado";
+            this.btnCambiarEstado.UseVisualStyleBackColor = false;
+            this.btnCambiarEstado.Click += new System.EventHandler(this.btnCambiarEstado_Click);
+            // 
             // Ordenes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(1181, 792);
+            this.Controls.Add(this.btnCambiarEstado);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Volver);
@@ -138,5 +153,6 @@
         private System.Windows.Forms.TextBox txtFiltro;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnCambiarEstado;
     }
 }

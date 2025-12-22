@@ -4,11 +4,12 @@ using Semestral___DSIV_GS.FolderApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.Json.Serialization;
+using System.Net; 
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using CatDto = Semestral___DSIV_GS.FolderApi.CategoriaDto;
 
 namespace Semestral___DSIV_GS.Forms
 {
@@ -16,41 +17,33 @@ namespace Semestral___DSIV_GS.Forms
     {
         private readonly ApiControl_ api = new ApiControl_();
         private readonly ErrorProvider ep = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
-        private readonly FolderApi.Categoria seleccionado;
+        private readonly CatDto _sel;
         private const string ENDPOINT = "api/categorias";
+        private int _padreActualId = 0;
 
-        // Nombre actual (no editable, pero lo necesitamos para PUT)
-        private string _nombreActual = "";
+        private sealed class PadreOption { public int Id { get; set; } public string Nombre { get; set; } = ""; }
 
-        // Controles esperados:
-        // txtId (TextBox, ReadOnly), txtNombre (TextBox, ReadOnly), cboPadre (ComboBox DL), btnGuardar, btnCancelar
-
-        public CategoriaMod(FolderApi.Categoria seleccionadoRow)
+        public CategoriaMod(CatDto seleccionado)
         {
             InitializeComponent();
-            seleccionado = seleccionadoRow ?? throw new ArgumentNullException(nameof(seleccionadoRow));
+            _sel = seleccionado ?? throw new ArgumentNullException(nameof(seleccionado));
 
-            // Guards de diseñador
-            if (txtId == null) throw new InvalidOperationException("Falta TextBox 'txtId'.");
-            if (txtNombre == null) throw new InvalidOperationException("Falta TextBox 'txtNombre'.");
-            if (cboPadre == null) throw new InvalidOperationException("Falta ComboBox 'cboPadre'.");
-            if (btnGuardar == null) throw new InvalidOperationException("Falta Button 'btnGuardar'.");
-            if (btnCancelar == null) throw new InvalidOperationException("Falta Button 'btnCancelar'.");
+            if ( txtNombre == null || cboPadre == null || btnGuardar == null || btnCancelar == null)
+                throw new InvalidOperationException("Faltan controles requeridos en el formulario.");
 
-            // Id y Nombre no editables
-            txtId.ReadOnly = true;
-            txtNombre.ReadOnly = true;
+ 
 
-            txtId.Text = seleccionado.Id.ToString();
-            txtNombre.Text = seleccionado.Nombre ?? "";
-            _nombreActual = txtNombre.Text;
+            txtNombre.ReadOnly = false;
+            txtNombre.Text = _sel.Nombre ?? "";
+            txtNombre.Validating += (s, e) => { if (!ValidarNombre()) e.Cancel = true; };
 
             cboPadre.DropDownStyle = ComboBoxStyle.DropDownList;
 
             this.AcceptButton = btnGuardar;
             this.CancelButton = btnCancelar;
-
+            btnCancelar.CausesValidation = false;
             btnCancelar.Click += (s, e) => { DialogResult = DialogResult.Cancel; Close(); };
+
             btnGuardar.Click += async (s, e) => await GuardarAsync();
             this.Shown += async (s, e) => await CargarAsync();
         }
@@ -62,40 +55,49 @@ namespace Semestral___DSIV_GS.Forms
                 Cursor = Cursors.WaitCursor;
                 api.SetToken(Session.Token);
 
-                // Detalle: aseguramos nombre actual (por si la grilla no venía al día) y padre actual
-                var detalle = await api.GetAsync<CategoriaDetalleDto>($"{ENDPOINT}/{seleccionado.Id}");
-                if (detalle != null)
+  
+                var detalle = await TryGetOrNullAsync<CatDto>($"{ENDPOINT}/{_sel.Id}");
+                if (detalle == null)
                 {
-                    _nombreActual = detalle.Nombre ?? _nombreActual;
-                    txtNombre.Text = _nombreActual;
+                    MessageBox.Show("La categoría seleccionada ya no existe.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.Cancel;
+                    Close();
+                    return;
                 }
-                int padreActual = detalle != null && detalle.CategoriaPadreId.HasValue ? detalle.CategoriaPadreId.Value : 0;
+                txtNombre.Text = detalle.Nombre ?? txtNombre.Text;
+                _padreActualId = detalle.CategoriaPadreId ?? 0; 
 
-                // Árbol: para excluir descendientes (no permitir ciclos)
-                var arbol = await api.GetAsync<CategoriaArbolDto>($"{ENDPOINT}/{seleccionado.Id}/arbol");
-                var descendientes = new HashSet<int>(Flatten(arbol).Where(id => id != seleccionado.Id));
+                var arbol = await TryGetOrNullAsync<CategoriaArbolDto>($"{ENDPOINT}/{_sel.Id}/arbol");
+                var descendientes = (arbol == null)
+                    ? new HashSet<int>()
+                    : new HashSet<int>(Flatten(arbol).Where(id => id != _sel.Id));
 
-                // Todas: poblar combo (0 = Sin padre)
-                var todas = await api.GetAsync<List<CategoriaListaDto>>(ENDPOINT);
-                if (todas == null) todas = new List<CategoriaListaDto>();
 
-                var opciones = new List<PadreOption>();
-                opciones.Add(new PadreOption { Id = 0, Nombre = "Sin padre (raíz)" });
+                var todas = await api.GetAsync<List<CatDto>>(ENDPOINT) ?? new List<CatDto>();
+
+                var opciones = new List<PadreOption> { new PadreOption { Id = 0, Nombre = "Sin padre (raíz)" } };
                 foreach (var c in todas)
                 {
                     if (c == null) continue;
-                    if (c.Id == seleccionado.Id) continue;
-                    if (descendientes.Contains(c.Id)) continue;
-                    opciones.Add(new PadreOption { Id = c.Id, Nombre = c.Id + " - " + (c.Nombre ?? "") });
+                    if (c.Id == _sel.Id) continue;              
+                    if (descendientes.Contains(c.Id)) continue; 
+                    opciones.Add(new PadreOption { Id = c.Id, Nombre = $"{c.Id} - {c.Nombre}" });
                 }
 
                 cboPadre.DisplayMember = nameof(PadreOption.Nombre);
                 cboPadre.ValueMember = nameof(PadreOption.Id);
                 cboPadre.DataSource = opciones;
 
-                // Seleccionar padre actual
-                var idx = opciones.FindIndex(x => x.Id == (padreActual == 0 ? 0 : padreActual));
+                var idx = opciones.FindIndex(x => x.Id == (_padreActualId == 0 ? 0 : _padreActualId));
                 if (idx >= 0) cboPadre.SelectedIndex = idx;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar categoría:\n" + ex, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult = DialogResult.Cancel;
+                Close();
             }
             finally
             {
@@ -113,20 +115,69 @@ namespace Semestral___DSIV_GS.Forms
                     yield return id;
         }
 
+
+        private bool ValidarNombre()
+        {
+            string v = (txtNombre.Text ?? "").Trim();
+            if (string.IsNullOrWhiteSpace(v)) { ep.SetError(txtNombre, "El nombre es obligatorio."); return false; }
+            if (v.Length < 2) { ep.SetError(txtNombre, "Debe tener al menos 2 caracteres."); return false; }
+            if (v.Length > 50) { ep.SetError(txtNombre, "No puede exceder 50 caracteres."); return false; }
+            var re = new Regex(@"^[\p{L}\p{N}\s\-_áéíóúÁÉÍÓÚñÑ]+$");
+            if (!re.IsMatch(v)) { ep.SetError(txtNombre, "Nombre inválido."); return false; }
+            ep.SetError(txtNombre, ""); return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private async Task<T> TryGetOrNullAsync<T>(string endpoint) where T : class
+        {
+            try
+            {
+                return await api.GetAsync<T>(endpoint);
+            }
+            catch (System.Net.Http.HttpRequestException ex)
+            {
+                if (Is404(ex)) return null;
+                throw;
+            }
+        }
+
+        private static bool Is404(System.Net.Http.HttpRequestException ex)
+        {
+            try
+            {
+                var prop = ex.GetType().GetProperty("StatusCode");
+                if (prop != null)
+                {
+                    var val = prop.GetValue(ex);
+                    if (val != null && val.ToString().Contains("404")) return true;
+                }
+            }
+            catch { /* ignore */ }
+
+            var msg = ex.Message ?? "";
+            return msg.Contains("404") || msg.IndexOf("Not Found", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
         private async Task GuardarAsync()
         {
             try
             {
                 ep.Clear();
+                if (!ValidarNombre()) return;
 
-                if (cboPadre == null)
-                {
-                    MessageBox.Show("No existe 'cboPadre' en el formulario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                int sel = cboPadre.SelectedValue is int v ? v : 0;
-                if (sel == seleccionado.Id)
+                int sel = (cboPadre?.SelectedValue is int v) ? v : 0;
+                if (sel == _sel.Id)
                 {
                     ep.SetError(cboPadre, "La categoría no puede ser su propio padre.");
                     MessageBox.Show("La categoría no puede ser su propio padre.", "Validación",
@@ -134,8 +185,11 @@ namespace Semestral___DSIV_GS.Forms
                     return;
                 }
 
-                // Mapea UI→SQL: 0 (sin padre) => -1 (quitar padre), >0 set padre
-                int padreToSend = sel == 0 ? -1 : sel;
+                // Tri-estado: -1 (quitar), 0 (no tocar), >0 (asignar)
+                int padreToSend =
+                    (sel == 0 && _padreActualId != 0) ? -1 :
+                    (sel == _padreActualId) ? 0 :
+                                                         sel;
 
                 btnGuardar.Enabled = false;
                 Cursor = Cursors.WaitCursor;
@@ -143,79 +197,29 @@ namespace Semestral___DSIV_GS.Forms
 
                 var req = new CategoriaPutDto
                 {
-                    Id = seleccionado.Id,
-                    Nombre = _nombreActual,        // nombre se mantiene igual
+                    Id = _sel.Id,
+                    Nombre = (txtNombre.Text ?? "").Trim(),
                     CategoriaPadreId = padreToSend
                 };
 
                 await api.PutAsync(ENDPOINT, req);
 
-                MessageBox.Show("Padre actualizado correctamente.", "OK",
+                MessageBox.Show("Categoría actualizada correctamente.", "OK",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            catch (HttpRequestException ex)
-            {
-                string msg = "No se pudo actualizar la categoría.";
-                if (ex.Data["StatusCode"] is HttpStatusCode sc)
-                {
-                    if (sc == HttpStatusCode.NotFound) msg = "La categoría no existe (404).";
-                    else if (sc == HttpStatusCode.Conflict) msg = "Conflicto (409).";
-                    else if (sc == HttpStatusCode.BadRequest) msg = "Datos inválidos (400).";
-                }
-                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar:\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar la categoría:\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 Cursor = Cursors.Default;
                 btnGuardar.Enabled = true;
             }
-        }
-
-        // --- DTOs locales para este form ---
-        private sealed class PadreOption
-        {
-            public int Id { get; set; }
-            public string Nombre { get; set; } = "";
-        }
-
-        internal sealed class CategoriaDetalleDto
-        {
-            [JsonPropertyName("id")] public int Id { get; set; }
-            [JsonPropertyName("nombre")] public string Nombre { get; set; } = "";
-            [JsonPropertyName("categoriaPadreId")] public int? CategoriaPadreId { get; set; }
-        }
-
-        internal sealed class CategoriaListaDto
-        {
-            [JsonPropertyName("id")] public int Id { get; set; }
-            [JsonPropertyName("nombre")] public string Nombre { get; set; } = "";
-        }
-
-        internal sealed class CategoriaArbolDto
-        {
-            [JsonPropertyName("id")] public int Id { get; set; }
-            [JsonPropertyName("nombre")] public string Nombre { get; set; } = "";
-            [JsonPropertyName("hijos")] public List<CategoriaArbolDto> Hijos { get; set; } = new List<CategoriaArbolDto>();
-        }
-
-        internal sealed class CategoriaPutDto
-        {
-            [JsonPropertyName("id")] public int Id { get; set; }
-            [JsonPropertyName("nombre")] public string Nombre { get; set; } = "";
-            [JsonPropertyName("categoriaPadreId")] public int CategoriaPadreId { get; set; } // -1 o >0
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
     }

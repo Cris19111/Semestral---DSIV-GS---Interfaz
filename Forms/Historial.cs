@@ -29,7 +29,7 @@ namespace Semestral___DSIV_GS
         {
             dgvFracturas.AutoGenerateColumns = true;
             await CargarFacturasAsync();
-            MessageBox.Show("La API devolvió NULL.");
+           
         }
 
         // Obtiene la lista de facturas desde la API y guarda copia original
@@ -44,7 +44,7 @@ namespace Semestral___DSIV_GS
 
                 if (facturas == null)
                 {
-                    MessageBox.Show("La API devolvió NULL");
+                    
                     return;
                 }
                 dgvFracturas.AutoGenerateColumns = true;
