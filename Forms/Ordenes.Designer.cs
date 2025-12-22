@@ -42,7 +42,7 @@
             // 
             this.dgvProductos.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Location = new System.Drawing.Point(34, 136);
+            this.dgvProductos.Location = new System.Drawing.Point(34, 159);
             this.dgvProductos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.RowHeadersWidth = 51;
@@ -55,7 +55,7 @@
             this.Volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.Volver.Font = new System.Drawing.Font("Sylfaen", 12F);
             this.Volver.ForeColor = System.Drawing.Color.White;
-            this.Volver.Location = new System.Drawing.Point(34, 680);
+            this.Volver.Location = new System.Drawing.Point(34, 705);
             this.Volver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Volver.Name = "Volver";
             this.Volver.Size = new System.Drawing.Size(132, 56);
@@ -95,7 +95,7 @@
             this.panel1.Controls.Add(this.txtFiltro);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1187, 100);
+            this.panel1.Size = new System.Drawing.Size(1187, 129);
             this.panel1.TabIndex = 21;
             // 
             // label1
@@ -116,7 +116,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
-            this.ClientSize = new System.Drawing.Size(1181, 761);
+            this.ClientSize = new System.Drawing.Size(1181, 792);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Volver);

@@ -212,5 +212,11 @@ namespace Semestral___DSIV_GS.Forms
             [JsonPropertyName("nombre")] public string Nombre { get; set; } = "";
             [JsonPropertyName("categoriaPadreId")] public int CategoriaPadreId { get; set; } // -1 o >0
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

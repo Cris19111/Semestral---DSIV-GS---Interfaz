@@ -31,17 +31,17 @@
             this.btnEliminarCategoria = new System.Windows.Forms.Button();
             this.btnEditarCategoria = new System.Windows.Forms.Button();
             this.btnCrearCategoria = new System.Windows.Forms.Button();
-            this.btnFiltrarProducto = new System.Windows.Forms.Button();
             this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.cmbCategoria = new System.Windows.Forms.ComboBox();
-            this.lblCategoria = new System.Windows.Forms.Label();
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
-            this.lblBuscarProducto = new System.Windows.Forms.Label();
-            this.Volver = new System.Windows.Forms.Button();
             this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.grpCategorias = new System.Windows.Forms.GroupBox();
+            this.Volver = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.grpCategorias.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEliminarCategoria
@@ -49,7 +49,7 @@
             this.btnEliminarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnEliminarCategoria.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarCategoria.Location = new System.Drawing.Point(825, 649);
+            this.btnEliminarCategoria.Location = new System.Drawing.Point(1036, 404);
             this.btnEliminarCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEliminarCategoria.Name = "btnEliminarCategoria";
             this.btnEliminarCategoria.Size = new System.Drawing.Size(235, 58);
@@ -62,7 +62,7 @@
             this.btnEditarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnEditarCategoria.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnEditarCategoria.Location = new System.Drawing.Point(605, 649);
+            this.btnEditarCategoria.Location = new System.Drawing.Point(1036, 320);
             this.btnEditarCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEditarCategoria.Name = "btnEditarCategoria";
             this.btnEditarCategoria.Size = new System.Drawing.Size(213, 58);
@@ -75,7 +75,7 @@
             this.btnCrearCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnCrearCategoria.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnCrearCategoria.Location = new System.Drawing.Point(381, 649);
+            this.btnCrearCategoria.Location = new System.Drawing.Point(1036, 231);
             this.btnCrearCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCrearCategoria.Name = "btnCrearCategoria";
             this.btnCrearCategoria.Size = new System.Drawing.Size(217, 58);
@@ -83,25 +83,12 @@
             this.btnCrearCategoria.Text = "Crear Categoria";
             this.btnCrearCategoria.UseVisualStyleBackColor = false;
             // 
-            // btnFiltrarProducto
-            // 
-            this.btnFiltrarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.btnFiltrarProducto.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFiltrarProducto.ForeColor = System.Drawing.Color.White;
-            this.btnFiltrarProducto.Location = new System.Drawing.Point(901, 28);
-            this.btnFiltrarProducto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnFiltrarProducto.Name = "btnFiltrarProducto";
-            this.btnFiltrarProducto.Size = new System.Drawing.Size(132, 58);
-            this.btnFiltrarProducto.TabIndex = 19;
-            this.btnFiltrarProducto.Text = "Filtrar";
-            this.btnFiltrarProducto.UseVisualStyleBackColor = false;
-            // 
             // btnBuscarProducto
             // 
-            this.btnBuscarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.btnBuscarProducto.BackColor = System.Drawing.Color.White;
             this.btnBuscarProducto.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarProducto.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarProducto.Location = new System.Drawing.Point(731, 28);
+            this.btnBuscarProducto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.btnBuscarProducto.Location = new System.Drawing.Point(768, 35);
             this.btnBuscarProducto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscarProducto.Name = "btnBuscarProducto";
             this.btnBuscarProducto.Size = new System.Drawing.Size(132, 58);
@@ -113,54 +100,20 @@
             // 
             this.cmbCategoria.Font = new System.Drawing.Font("Sylfaen", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(476, 38);
+            this.cmbCategoria.Location = new System.Drawing.Point(1036, 163);
             this.cmbCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbCategoria.Name = "cmbCategoria";
             this.cmbCategoria.Size = new System.Drawing.Size(205, 36);
             this.cmbCategoria.TabIndex = 17;
             // 
-            // lblCategoria
-            // 
-            this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCategoria.Location = new System.Drawing.Point(344, 39);
-            this.lblCategoria.Name = "lblCategoria";
-            this.lblCategoria.Size = new System.Drawing.Size(115, 31);
-            this.lblCategoria.TabIndex = 16;
-            this.lblCategoria.Text = "Categoría:";
-            // 
             // txtBuscarProducto
             // 
             this.txtBuscarProducto.Font = new System.Drawing.Font("Sylfaen", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscarProducto.Location = new System.Drawing.Point(132, 32);
+            this.txtBuscarProducto.Location = new System.Drawing.Point(935, 48);
             this.txtBuscarProducto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBuscarProducto.Name = "txtBuscarProducto";
-            this.txtBuscarProducto.Size = new System.Drawing.Size(205, 36);
+            this.txtBuscarProducto.Size = new System.Drawing.Size(246, 36);
             this.txtBuscarProducto.TabIndex = 15;
-            // 
-            // lblBuscarProducto
-            // 
-            this.lblBuscarProducto.AutoSize = true;
-            this.lblBuscarProducto.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBuscarProducto.Location = new System.Drawing.Point(42, 39);
-            this.lblBuscarProducto.Name = "lblBuscarProducto";
-            this.lblBuscarProducto.Size = new System.Drawing.Size(87, 31);
-            this.lblBuscarProducto.TabIndex = 14;
-            this.lblBuscarProducto.Text = "Buscar:";
-            // 
-            // Volver
-            // 
-            this.Volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.Volver.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Volver.ForeColor = System.Drawing.Color.White;
-            this.Volver.Location = new System.Drawing.Point(14, 650);
-            this.Volver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Volver.Name = "Volver";
-            this.Volver.Size = new System.Drawing.Size(132, 56);
-            this.Volver.TabIndex = 25;
-            this.Volver.Text = "Volver";
-            this.Volver.UseVisualStyleBackColor = false;
-            this.Volver.Click += new System.EventHandler(this.Volver_Click);
             // 
             // dgvProductos
             // 
@@ -178,40 +131,74 @@
             // 
             this.grpCategorias.Controls.Add(this.dgvProductos);
             this.grpCategorias.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCategorias.Location = new System.Drawing.Point(88, 112);
+            this.grpCategorias.Location = new System.Drawing.Point(86, 127);
             this.grpCategorias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpCategorias.Name = "grpCategorias";
             this.grpCategorias.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpCategorias.Size = new System.Drawing.Size(901, 529);
             this.grpCategorias.TabIndex = 20;
             this.grpCategorias.TabStop = false;
-            this.grpCategorias.Text = "Categorias";
+            // 
+            // Volver
+            // 
+            this.Volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.Volver.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Volver.ForeColor = System.Drawing.Color.White;
+            this.Volver.Location = new System.Drawing.Point(21, 700);
+            this.Volver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Volver.Name = "Volver";
+            this.Volver.Size = new System.Drawing.Size(132, 56);
+            this.Volver.TabIndex = 25;
+            this.Volver.Text = "Volver";
+            this.Volver.UseVisualStyleBackColor = false;
+            this.Volver.Click += new System.EventHandler(this.Volver_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtBuscarProducto);
+            this.panel1.Controls.Add(this.btnBuscarProducto);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1318, 122);
+            this.panel1.TabIndex = 26;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.label1.Font = new System.Drawing.Font("Elephant", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(25, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(235, 51);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Categorias";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Categoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
-            this.ClientSize = new System.Drawing.Size(1100, 734);
+            this.ClientSize = new System.Drawing.Size(1316, 795);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.Volver);
             this.Controls.Add(this.btnEliminarCategoria);
             this.Controls.Add(this.btnEditarCategoria);
             this.Controls.Add(this.btnCrearCategoria);
             this.Controls.Add(this.grpCategorias);
-            this.Controls.Add(this.btnFiltrarProducto);
-            this.Controls.Add(this.btnBuscarProducto);
             this.Controls.Add(this.cmbCategoria);
-            this.Controls.Add(this.lblCategoria);
-            this.Controls.Add(this.txtBuscarProducto);
-            this.Controls.Add(this.lblBuscarProducto);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Categoria";
             this.Text = "Categoria";
             this.Load += new System.EventHandler(this.Categoria_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.grpCategorias.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -220,14 +207,13 @@
         private System.Windows.Forms.Button btnEliminarCategoria;
         private System.Windows.Forms.Button btnEditarCategoria;
         private System.Windows.Forms.Button btnCrearCategoria;
-        private System.Windows.Forms.Button btnFiltrarProducto;
         private System.Windows.Forms.Button btnBuscarProducto;
         private System.Windows.Forms.ComboBox cmbCategoria;
-        private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.TextBox txtBuscarProducto;
-        private System.Windows.Forms.Label lblBuscarProducto;
-        private System.Windows.Forms.Button Volver;
         private System.Windows.Forms.DataGridView dgvProductos;
         private System.Windows.Forms.GroupBox grpCategorias;
+        private System.Windows.Forms.Button Volver;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
     }
 }

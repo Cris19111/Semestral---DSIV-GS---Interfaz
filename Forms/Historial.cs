@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace Semestral___DSIV_GS
 {
-    public partial class FormHistorial : Form
+    public partial class Historial : Form
     {
         private ApiControl_ api;
         private List<Fracturas> facturasOriginal;
 
        
-        public FormHistorial()
+        public Historial()
         {
             InitializeComponent();
             api = new ApiControl_();
@@ -70,10 +70,7 @@ namespace Semestral___DSIV_GS
         }
 
         // Evento cambio de filtro seleccionado: (puede invocar AplicarFiltro)
-        private void cmbBoxFiltro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-      
-        }
+
 
         // Aplica el filtro seleccionado sobre la lista original y muestra resultados
         private void AplicarFiltro()

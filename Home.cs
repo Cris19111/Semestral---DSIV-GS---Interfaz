@@ -21,7 +21,7 @@ namespace Semestral___DSIV_GS
         // Abre la ventana de historial de ventas
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            FormHistorial ventana = new FormHistorial();
+            Historial ventana = new Historial();
             ventana.Show();
             this.Hide();
         }

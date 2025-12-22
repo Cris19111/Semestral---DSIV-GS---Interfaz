@@ -40,15 +40,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnEliminar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(45, 183);
+            this.txtNombre.Location = new System.Drawing.Point(45, 243);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(517, 35);
             this.txtNombre.TabIndex = 0;
@@ -56,7 +57,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescripcion.Location = new System.Drawing.Point(45, 262);
+            this.txtDescripcion.Location = new System.Drawing.Point(45, 316);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(517, 35);
             this.txtDescripcion.TabIndex = 1;
@@ -64,7 +65,7 @@
             // numPrecio
             // 
             this.numPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numPrecio.Location = new System.Drawing.Point(45, 329);
+            this.numPrecio.Location = new System.Drawing.Point(45, 398);
             this.numPrecio.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -77,7 +78,7 @@
             // numStock
             // 
             this.numStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numStock.Location = new System.Drawing.Point(45, 403);
+            this.numStock.Location = new System.Drawing.Point(45, 478);
             this.numStock.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -90,10 +91,10 @@
             // chkItbms
             // 
             this.chkItbms.AutoSize = true;
-            this.chkItbms.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkItbms.Location = new System.Drawing.Point(45, 470);
+            this.chkItbms.Font = new System.Drawing.Font("Elephant", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkItbms.Location = new System.Drawing.Point(45, 539);
             this.chkItbms.Name = "chkItbms";
-            this.chkItbms.Size = new System.Drawing.Size(185, 33);
+            this.chkItbms.Size = new System.Drawing.Size(190, 33);
             this.chkItbms.TabIndex = 4;
             this.chkItbms.Text = "Paga ITBMS";
             this.chkItbms.UseVisualStyleBackColor = true;
@@ -103,7 +104,7 @@
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(45, 603);
+            this.btnGuardar.Location = new System.Drawing.Point(421, 618);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(162, 70);
             this.btnGuardar.TabIndex = 5;
@@ -116,7 +117,7 @@
             this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(404, 603);
+            this.btnCancelar.Location = new System.Drawing.Point(41, 618);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(170, 70);
             this.btnCancelar.TabIndex = 6;
@@ -127,10 +128,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
             this.label1.Font = new System.Drawing.Font("Elephant", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label1.Location = new System.Drawing.Point(105, 34);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(99, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(425, 46);
             this.label1.TabIndex = 7;
@@ -140,11 +141,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Elephant", 9.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label2.Location = new System.Drawing.Point(40, 127);
+            this.label2.Location = new System.Drawing.Point(40, 196);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 29);
+            this.label2.Size = new System.Drawing.Size(140, 39);
             this.label2.TabIndex = 8;
             this.label2.Text = "Nombre";
             // 
@@ -152,11 +153,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Elephant", 9.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label4.Location = new System.Drawing.Point(40, 230);
+            this.label4.Location = new System.Drawing.Point(40, 284);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(152, 29);
+            this.label4.Size = new System.Drawing.Size(201, 39);
             this.label4.TabIndex = 10;
             this.label4.Text = "Descripcion";
             // 
@@ -164,11 +165,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Elephant", 9.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label5.Location = new System.Drawing.Point(40, 297);
+            this.label5.Location = new System.Drawing.Point(40, 354);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 29);
+            this.label5.Size = new System.Drawing.Size(117, 39);
             this.label5.TabIndex = 11;
             this.label5.Text = "Precio";
             // 
@@ -176,26 +177,22 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Elephant", 9.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.label6.Location = new System.Drawing.Point(40, 367);
+            this.label6.Location = new System.Drawing.Point(40, 436);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 29);
+            this.label6.Size = new System.Drawing.Size(156, 39);
             this.label6.TabIndex = 12;
             this.label6.Text = "Cantidad";
             // 
-            // btnEliminar
+            // panel1
             // 
-            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
-            this.btnEliminar.Font = new System.Drawing.Font("Sylfaen", 12F);
-            this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.Location = new System.Drawing.Point(213, 725);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(132, 56);
-            this.btnEliminar.TabIndex = 18;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(0)))), ((int)(((byte)(35)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(685, 132);
+            this.panel1.TabIndex = 13;
             // 
             // ProductoModAdd
             // 
@@ -203,12 +200,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(608, 832);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.chkItbms);
@@ -216,10 +211,13 @@
             this.Controls.Add(this.numPrecio);
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.panel1);
             this.Name = "ProductoModAdd";
             this.Text = "ProductoModAdd";
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,6 +237,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Panel panel1;
     }
 }
